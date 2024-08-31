@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/pages/characters%20list/characters_list.dart';
-import 'package:rick_and_morty_app/pages/settings/settings.dart';
+import 'package:rick_and_morty_app/ui/pages/characters_list/characters_list.dart';
+import 'package:rick_and_morty_app/ui/pages/settings/settings.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,16 +14,8 @@ class MainApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: const Color.fromRGBO(48, 27, 40, 1),
-          backgroundColor: const Color.fromRGBO(48, 27, 40, 1),
-          actions: [
-            IconButton(onPressed: (){}, icon: Icon(Icons.filter_list,), iconSize: 35,)
-          ],
-          
-        ),
         bottomNavigationBar: NavigationBar(
-          backgroundColor: const Color.fromRGBO(48, 27, 40, 1),
+          backgroundColor: Color.fromARGB(255, 242, 242, 242),
           destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),

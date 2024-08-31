@@ -22,20 +22,20 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(48, 27, 40, 1),
+        color: Color.fromARGB(255, 242, 242, 242),
       ),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min, 
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                color: Color.fromRGBO(221, 197, 162, 1),
+                color: Color.fromARGB(255, 212, 212, 212),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -44,12 +44,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.brightness_6, color: Colors.black, size: 28),
+                          Icon(Icons.brightness_6,
+                              color: Colors.black, size: 28),
                           SizedBox(width: 10),
                           Text(
                             'Выберите тему',
                             style: TextStyle(
-                              fontSize: 26, 
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -61,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         activeColor: Colors.black,
                         title: const Text(
                           'Светлая',
-                          style: TextStyle(fontSize: 20), 
+                          style: TextStyle(fontSize: 20),
                         ),
                         value: ThemeMode.light,
                         groupValue: _themeMode,
@@ -71,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         activeColor: Colors.black,
                         title: const Text(
                           'Тёмная',
-                          style: TextStyle(fontSize: 20), 
+                          style: TextStyle(fontSize: 20),
                         ),
                         value: ThemeMode.dark,
                         groupValue: _themeMode,
