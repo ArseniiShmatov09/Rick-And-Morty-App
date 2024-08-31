@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CharactersList extends StatelessWidget {
   const CharactersList({super.key});
   static const List<String> list = <String>['aldasl', 'Two', 'Three', 'Four'];
-
+  //final model = NotifierProvider
   @override
   Widget build(BuildContext context) {
     return Column(
