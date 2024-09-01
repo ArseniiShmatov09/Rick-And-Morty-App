@@ -7,16 +7,40 @@ class ApiClient {
   final _client = HttpClient();
   static const _host = 'https://rickandmortyapi.com/api';
 
-  Future<CharactersResponse> getCharacters() async {
-    final parser = (dynamic json) { 
+  Future<CharactersResponse> getCharacters(int page) async {
+    
+    parser(dynamic json) { 
       final jsonMap = json as Map<String, dynamic>;
       final response = CharactersResponse.fromJson(jsonMap);
       return response;
-    };
+    }
 
     final result = _get(
       '/character',
       parser,
+      <String, dynamic> {'page': page.toString(),},
+    );
+    return result;
+  }
+
+  Future<CharactersResponse> getFilteredCharacters(
+    String? status,
+    String? species,
+    int page,
+  ) async {
+    parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = CharactersResponse.fromJson(jsonMap);
+      return response;
+    }
+    final result = _get(
+      '/character',
+      parser,
+      <String, dynamic>{
+        'page': page.toString(),
+        'status': status,
+        'species': species,
+      },
     );
     return result;
   }
@@ -29,7 +53,7 @@ class ApiClient {
   {
     final url = _makeUri(path, parameters);
     final request = await _client.getUrl(url);
-    final response = await request.close();
+     final response = await request.close();
     final dynamic json = (await response.jsoneDecode());
     final result = parser(json);
     return result;

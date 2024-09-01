@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/domain/models/characters_list_model.dart';
 import 'package:rick_and_morty_app/ui/pages/characters_list/characters_list.dart';
 import 'package:rick_and_morty_app/ui/pages/settings/settings.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -29,8 +32,10 @@ class MainApp extends StatelessWidget {
 
           ],
         ),
-        //body: SettingsPage(),
-        body: CharactersList(),
+        body: ChangeNotifierProvider(
+          create: (context) => CharactersListModel(),
+          child: const CharactersList()),
+ 
       ),
     );
   }

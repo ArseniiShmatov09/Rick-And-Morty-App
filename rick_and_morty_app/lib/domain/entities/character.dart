@@ -7,8 +7,8 @@ class Character {
   final String name;
   final String status;
   final String species;
-  final int type;
-  final int gender;
+  final String? type;
+  final String gender;
   final LocationInfo origin;
   final LocationInfo location;
   final List<String> episode;

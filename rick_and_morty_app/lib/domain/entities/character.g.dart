@@ -11,8 +11,8 @@ Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
       name: json['name'] as String,
       status: json['status'] as String,
       species: json['species'] as String,
-      type: (json['type'] as num).toInt(),
-      gender: (json['gender'] as num).toInt(),
+      type: json['type'] as String?,
+      gender: json['gender'] as String,
       origin: LocationInfo.fromJson(json['origin'] as Map<String, dynamic>),
       location: LocationInfo.fromJson(json['location'] as Map<String, dynamic>),
       episode:
