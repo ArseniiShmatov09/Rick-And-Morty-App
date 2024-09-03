@@ -6,15 +6,14 @@ class CharactersList extends StatefulWidget {
   const CharactersList({super.key});
   static const List<String> status = <String>['Alive', 'Dead', 'unknown'];
   static const List<String> species = <String>['Alien', 'Human', 'Humanoid'];
-  
-  
+
   @override
   State<CharactersList> createState() => _CharactersListState();
 }
 
 class _CharactersListState extends State<CharactersList> {
-  String chosenStatus = '';
-  String chosenSpecies = '';
+  String selectedStatus = '';
+  String selectedSpecies = '';
   @override
   void initState() {
     super.initState();
@@ -34,7 +33,10 @@ class _CharactersListState extends State<CharactersList> {
               Expanded(
                 child: DropdownMenu<String>(
                   hintText: "status",
-                  onSelected: (String? value) => model.selectStatus,
+                  onSelected: (String? value) => {
+                    value == null? selectedStatus = '' :
+                    selectedStatus = value, 
+                  },
                   dropdownMenuEntries: CharactersList.status
                       .map<DropdownMenuEntry<String>>((String value) {
                     return DropdownMenuEntry<String>(value: value, label: value);
@@ -44,15 +46,24 @@ class _CharactersListState extends State<CharactersList> {
               Expanded(
                 child: DropdownMenu<String>(
                   hintText: "species",
-                  onSelected: (String? value) => model.selectSpecies,
+                   onSelected: (String? value) => {
+                    value == null? selectedSpecies = '' :
+                    selectedSpecies = value, 
+                  },
                   dropdownMenuEntries: CharactersList.species
                       .map<DropdownMenuEntry<String>>((String value) {
                     return DropdownMenuEntry<String>(value: value, label: value);
                   }).toList(),
                 ),
               ),
-              FloatingActionButton(mini: true, onPressed: () => model.loadFilteredCharacters(model.selectedStatus, model.selectedSpecies, 1))
             ],
+          ),
+        ),
+        FloatingActionButton(
+          onPressed: () => model.loadFilteredCharacters(
+            selectedStatus, 
+            selectedSpecies, 
+            1,
           ),
         ),
         Expanded(
@@ -65,7 +76,9 @@ class _CharactersListState extends State<CharactersList> {
                   final character = model.characters[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
+                      vertical: 10, 
+                      horizontal: 16
+                    ),
                     child: Stack(
                       children: [
                         Container(
@@ -121,6 +134,13 @@ class _CharactersListState extends State<CharactersList> {
                                 color: Colors.black54,
                               ),
                             ),
+                          ),
+                        ),
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10),
+                            onTap: () => model.onCharacterTap(context, index),
                           ),
                         ),
                       ],

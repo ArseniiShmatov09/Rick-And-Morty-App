@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/domain/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
+import 'package:rick_and_morty_app/ui/navigation/main_navigation.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
   final _appClient = ApiClient();
   final _characters = <Character> [];
-  late String selectedStatus = '';
-  late String selectedSpecies = '';
   
   List<Character> get characters => List.unmodifiable(_characters);
 
   Future<void> loadCharacters(int page) async {
     _resetList();
-    final charactersResponse = await _appClient.getCharacters(page);
+    final charactersResponse = await _appClient.getAllCharacters(page);
     _characters.addAll(charactersResponse.characters);
     notifyListeners();
   }
@@ -29,11 +28,12 @@ class CharactersListModel extends ChangeNotifier {
     _characters.clear();
   }
 
-  Future<void> selectStatus(String? value) async {
-    value == null? selectedStatus = '' : selectedStatus = value;  
+  void onCharacterTap(BuildContext context, int index) {
+    final id = _characters[index].id;
+    Navigator.of(context).pushNamed(
+      MainNavigationRouteNames.characterDetails,
+      arguments: id,
+    );
   }
 
-  Future<void> selectSpecies(String? value) async {
-    value == null? selectedSpecies = '' : selectedSpecies = value;  
-  }
 }

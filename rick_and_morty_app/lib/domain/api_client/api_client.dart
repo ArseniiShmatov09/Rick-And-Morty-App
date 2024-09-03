@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/entities/characters_response.dart';
 
 class ApiClient {
   final _client = HttpClient();
   static const _host = 'https://rickandmortyapi.com/api';
 
-  Future<CharactersResponse> getCharacters(int page) async {
+  Future<CharactersResponse> getAllCharacters(int page) async {
     
     parser(dynamic json) { 
       final jsonMap = json as Map<String, dynamic>;
@@ -19,6 +20,21 @@ class ApiClient {
       '/character',
       parser,
       <String, dynamic> {'page': page.toString(),},
+    );
+    return result;
+  }
+
+  Future<Character> getCharacter(int chracterId) async {
+    
+    parser(dynamic json) { 
+      final jsonMap = json as Map<String, dynamic>;
+      final response = Character.fromJson(jsonMap);
+      return response;
+    }
+
+    final result = _get(
+      '/character/$chracterId',
+      parser,
     );
     return result;
   }
