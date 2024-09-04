@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
@@ -6,10 +5,13 @@ import 'package:rick_and_morty_app/domain/models/characters_list_model.dart';
 import 'package:rick_and_morty_app/ui/pages/character_details.dart/character_details.dart';
 import 'package:rick_and_morty_app/ui/pages/characters_list/characters_list.dart';
 import 'package:rick_and_morty_app/ui/pages/main_page/main_page.dart';
+import 'package:rick_and_morty_app/ui/pages/settings/settings.dart';
 
 abstract class MainNavigationRouteNames {
   static const mainScreen = 'main/';
   static const characterDetails = 'character_details/';
+  static const settings = 'settings/';
+
 }
 
 class MainNavigation {
@@ -17,8 +19,8 @@ class MainNavigation {
   String initialRoute =  MainNavigationRouteNames.mainScreen;
 
   final routes = <String, Widget Function(BuildContext)>{
-
-    MainNavigationRouteNames.mainScreen: (context) => ChangeNotifierProvider(
+    MainNavigationRouteNames.settings : (context) => SettingsPage(),
+    MainNavigationRouteNames.mainScreen : (context) => ChangeNotifierProvider(
       create: (context) => CharactersListModel(),
       child: MainScreen(),
     ),

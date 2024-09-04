@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
@@ -25,7 +26,11 @@ class _CharacterDetailsState extends State<CharacterDetails> {
 
     final character = model.character;
     if (character == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: SpinKitFadingCircle(
+          color: Colors.grey,
+        ),
+      );
     }
 
     String? characterType = model.character?.type;
@@ -34,8 +39,9 @@ class _CharacterDetailsState extends State<CharacterDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text(model.character?.name ?? 'Unknown'),
-        backgroundColor: Colors.deepPurple,
-      ),
+        backgroundColor: Color.fromARGB(222, 145, 140, 140),
+
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -74,7 +80,7 @@ class _CharacterDetailsState extends State<CharacterDetails> {
             _buildInfoRow('Episodes:', model.firstEpisode?.name ?? ''),
             _buildInfoRow('Created at:', model.formattedDateOfCreation?? ''),
            
-            _buildInfoRow('Created at:', characterType,)
+            _buildInfoRow('Type:', characterType)
 
           ],
         ),

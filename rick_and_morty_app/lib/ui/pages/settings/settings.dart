@@ -1,4 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rick_and_morty_app/bloc/theme/theme_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -8,23 +12,23 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  ThemeMode _themeMode = ThemeMode.system;
 
-  void _onThemeChanged(ThemeMode? mode) {
-    if (mode != null) {
-      setState(() {
-        _themeMode = mode;
-      });
+  void _onThemeChanged(Brightness? brightness) {
+
+    if (brightness != null) {
+      context.read<ThemeCubit>().setThemeBrightness(brightness);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 242, 242, 242),
+    final brightness = context.read<ThemeCubit>().state.brightness;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+        backgroundColor: Color.fromARGB(222, 185, 184, 184),
       ),
-      child: Center(
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -35,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                color: Color.fromARGB(255, 212, 212, 212),
+                color: Color.fromARGB(222, 185, 184, 184),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -58,24 +62,24 @@ class _SettingsPageState extends State<SettingsPage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      RadioListTile<ThemeMode>(
+                      RadioListTile<Brightness>(
                         activeColor: Colors.black,
                         title: const Text(
                           'Светлая',
                           style: TextStyle(fontSize: 20),
                         ),
-                        value: ThemeMode.light,
-                        groupValue: _themeMode,
+                        value: Brightness.light,
+                        groupValue: brightness,
                         onChanged: _onThemeChanged,
                       ),
-                      RadioListTile<ThemeMode>(
+                      RadioListTile<Brightness>(
                         activeColor: Colors.black,
                         title: const Text(
                           'Тёмная',
                           style: TextStyle(fontSize: 20),
                         ),
-                        value: ThemeMode.dark,
-                        groupValue: _themeMode,
+                        value: Brightness.dark,
+                        groupValue: brightness,
                         onChanged: _onThemeChanged,
                       ),
                     ],

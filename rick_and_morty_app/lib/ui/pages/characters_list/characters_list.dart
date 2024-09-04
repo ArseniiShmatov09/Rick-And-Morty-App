@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/domain/models/characters_list_model.dart';
 
@@ -34,7 +35,7 @@ class _CharactersListState extends State<CharactersList> {
   }
 
   void _scrollToTop() {
-   Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 300), () {
       controller.jumpTo(0);
     });
   }
@@ -47,7 +48,7 @@ class _CharactersListState extends State<CharactersList> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: DropdownMenu<String>(
@@ -95,7 +96,7 @@ class _CharactersListState extends State<CharactersList> {
         ),
         Expanded(
           child: Container(
-            color: Color.fromARGB(255, 242, 242, 242),
+            //color: Color.fromARGB(255, 242, 242, 242),
             child: ListView.builder(
                 controller: controller,
                 itemCount: model.characters.length ?? 0,
@@ -110,7 +111,7 @@ class _CharactersListState extends State<CharactersList> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 212, 212, 212),
+                              color: Color.fromARGB(222, 185, 184, 184),
                               border: Border.all(
                                   color: Colors.black.withOpacity(0.2)),
                               borderRadius:
@@ -176,7 +177,10 @@ class _CharactersListState extends State<CharactersList> {
                     );
                   } else {
                     return model.hasMoreData
-                        ? Center(child: CircularProgressIndicator())
+                        ? Center(
+                            child: SpinKitFadingCircle(
+                            color: Colors.grey,
+                          ))
                         : SizedBox(
                             height: 0,
                           );
