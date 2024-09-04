@@ -31,7 +31,7 @@ class Character {
     required this.created
   });
 
-   factory Character.fromJson(Map<String, dynamic> json) =>
+  factory Character.fromJson(Map<String, dynamic> json) =>
     _$CharacterFromJson(json);
   
   Map<String, dynamic> toJson() => _$CharacterToJson(this);

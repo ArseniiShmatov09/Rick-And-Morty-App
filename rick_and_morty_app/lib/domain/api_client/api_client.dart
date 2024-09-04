@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/entities/characters_response.dart';
+import 'package:rick_and_morty_app/domain/entities/episode.dart';
 
 class ApiClient {
   final _client = HttpClient();
@@ -39,6 +40,20 @@ class ApiClient {
     return result;
   }
 
+  Future<Episode> getEpisode(int episodeId) async {
+    
+    parser(json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return Episode.fromJson(jsonMap);
+    }
+
+    final result =  _get(
+      '/episode/$episodeId',
+      parser,
+    );
+    return result;
+  }
+
   Future<CharactersResponse> getFilteredCharacters(
     String? status,
     String? species,
@@ -53,9 +68,9 @@ class ApiClient {
       '/character',
       parser,
       <String, dynamic>{
-        'page': page.toString(),
         'status': status,
         'species': species,
+        'page': page.toString(),
       },
     );
     return result;

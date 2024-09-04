@@ -14,15 +14,23 @@ class CharacterDetails extends StatefulWidget {
 class _CharacterDetailsState extends State<CharacterDetails> {
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    context.read<CharacterModel>().loadDetails();
+  void initState() {
+    super.initState();
+     context.read<CharacterModel>().loadDetails();
   }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<CharacterModel>();
 
+    final character = model.character;
+    if (character == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    String? characterType = model.character?.type;
+    if(characterType == '' || characterType == null){ characterType = 'unknown';}
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(model.character?.name ?? 'Unknown'),
@@ -36,12 +44,15 @@ class _CharacterDetailsState extends State<CharacterDetails> {
             Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: Image.network(
+                child: model.character?.image == null
+                 ? const SizedBox.shrink() :
+                 Image.network(
                   model.character?.image ?? '',
                   height: 200,
                   width: 200,
                   fit: BoxFit.cover,
-                ),
+                ) 
+                  
               ),
             ),
             const SizedBox(height: 16),
@@ -60,7 +71,11 @@ class _CharacterDetailsState extends State<CharacterDetails> {
             _buildInfoRow('Gender:', model.character?.gender ?? ''),
             _buildInfoRow('Origin:', model.character?.origin.name ?? ''),
             _buildInfoRow('Location:', model.character?.location.name ?? ''),
-            //_buildInfoRow('Episodes:', model.character.episodes.length.toString()),
+            _buildInfoRow('Episodes:', model.firstEpisode?.name ?? ''),
+            _buildInfoRow('Created at:', model.formattedDateOfCreation?? ''),
+           
+            _buildInfoRow('Created at:', characterType,)
+
           ],
         ),
       ),
