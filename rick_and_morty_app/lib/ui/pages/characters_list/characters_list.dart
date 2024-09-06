@@ -3,6 +3,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/domain/models/characters_list_model.dart';
 
+import '../../../domain/models/network_connection.dart';
+import '../../navigation/main_navigation.dart';
+
 class CharactersList extends StatefulWidget {
   const CharactersList({super.key});
   static const List<String> status = <String>['Alive', 'Dead', 'unknown'];
@@ -16,7 +19,7 @@ class _CharactersListState extends State<CharactersList> {
   final controller = ScrollController();
   String selectedStatus = '';
   String selectedSpecies = '';
-
+  final networkConnection = NetworkConnection();
   @override
   void initState() {
     super.initState();
@@ -43,8 +46,17 @@ class _CharactersListState extends State<CharactersList> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<CharactersListModel>();
+    if (model.characters.length == 0) {
+      return const Center(
+        child: SpinKitFadingCircle(
+          color: Colors.grey,
+        ),
+      );
+    }
+
     return Column(
       children: [
+        if(!networkConnection.isOffline)
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Row(
@@ -83,6 +95,7 @@ class _CharactersListState extends State<CharactersList> {
             ],
           ),
         ),
+        if(!networkConnection.isOffline)
         FloatingActionButton(
           onPressed: () {
             _scrollToTop();
@@ -97,7 +110,10 @@ class _CharactersListState extends State<CharactersList> {
         Expanded(
           child: Container(
             //color: Color.fromARGB(255, 242, 242, 242),
-            child: ListView.builder(
+
+            child: model.characters.length == 0 ?
+            Center(child: Text("No data available")) :
+            ListView.builder(
                 controller: controller,
                 itemCount: model.characters.length ?? 0,
                 itemExtent: 150,
@@ -115,22 +131,24 @@ class _CharactersListState extends State<CharactersList> {
                               border: Border.all(
                                   color: Colors.black.withOpacity(0.2)),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
+                              const BorderRadius.all(Radius.circular(10)),
                             ),
                             clipBehavior: Clip.hardEdge,
                             child: Row(
                               children: [
-                                Image.network(
-                                  character.image,
-                                ),
+                                networkConnection.isOffline?
+                                Image.asset('assets/images/no_image.jpeg')
+                                  : Image.network(
+                                    character.image,
+                                  ),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
+                                      CrossAxisAlignment.stretch,
                                       children: [
                                         Text(
                                           character.name,
@@ -178,12 +196,12 @@ class _CharactersListState extends State<CharactersList> {
                   } else {
                     return model.hasMoreData
                         ? Center(
-                            child: SpinKitFadingCircle(
-                            color: Colors.grey,
-                          ))
+                        child: SpinKitFadingCircle(
+                          color: Colors.grey,
+                        ))
                         : SizedBox(
-                            height: 0,
-                          );
+                      height: 0,
+                    );
                   }
                 }),
           ),
@@ -192,3 +210,4 @@ class _CharactersListState extends State<CharactersList> {
     );
   }
 }
+

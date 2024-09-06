@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rick_and_morty_app/domain/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
+import 'package:rick_and_morty_app/domain/entities/characters_response.dart';
 import 'package:rick_and_morty_app/domain/entities/episode.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CharacterModel extends ChangeNotifier {
-  
-  CharacterModel(this.characterId);
+
+  CharacterModel(this.charactersBox, this.characterId) {
+    _apiClient = ApiClient(charactersBox);
+  }
 
   Episode? firstEpisode;
   String? formattedDateOfCreation;
 
-  final _apiClient = ApiClient();
-  
+  late final ApiClient _apiClient;
+  final Box<Character> charactersBox;
+
   final int characterId;
   Character? _character;
   Character? get character => _character;

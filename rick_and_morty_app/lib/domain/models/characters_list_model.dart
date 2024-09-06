@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/domain/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/entities/characters_response.dart';
@@ -6,66 +8,64 @@ import 'package:rick_and_morty_app/ui/navigation/main_navigation.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
-  final _apiClient = ApiClient();
+  CharactersListModel(this.charactersBox) {
+    _apiClient = ApiClient(charactersBox);
+  }
+
+  late final ApiClient _apiClient;
+  final Box<Character> charactersBox;
+
   final _characters = <Character>[];
-  late int _currentPage;
-  late int _pageCount;
+
+  int _currentPage = 1;
+  int _pageCount = 1;
+
   String? _species;
   String? _status;
-  var _isLoadInprogress = false;
-  final limit = 20;
+
+  bool _isLoadInprogress = false;
   bool hasMoreData = true;
 
   List<Character> get characters => List.unmodifiable(_characters);
 
-
   Future<CharactersResponse> _loadCharacters(int nextPage) async {
-    final status = _status;
-    final species = _species;
-    
-    if (status == null && species == null) {
+    if (_status == null && _species == null) {
       return await _apiClient.getAllCharacters(nextPage);
     } else {
-      return await _apiClient.getFilteredCharacters(status, species, nextPage);
+      return await _apiClient.getFilteredCharacters(_status, _species, nextPage);
     }
   }
 
   Future<void> loadNextPage() async {
-    if (_isLoadInprogress || _currentPage >= _pageCount) return;
+    if (_isLoadInprogress || _currentPage > _pageCount) return;
     _isLoadInprogress = true;
 
-    final nextPage = _currentPage + 1;
-    final charactersResponse = await _loadCharacters(nextPage);
-    _characters.addAll(charactersResponse.characters);
-    if(charactersResponse.info.next != ''){
-      Uri nextPageUri = Uri.parse(charactersResponse.info.next!);
-
-      String? pageNumber = nextPageUri.queryParameters['page'];
-      _currentPage = int.parse(pageNumber!) - 1;
-    }
-    else{
-      _currentPage = charactersResponse.info.pages;
-    }
-    if(charactersResponse.characters.length < limit){
+    try {
+      final charactersResponse = await _loadCharacters(_currentPage);
+      _characters.addAll(charactersResponse.characters);
+      _pageCount = charactersResponse.info.pages;
+      hasMoreData = _currentPage < _pageCount;
+      _currentPage++;
+    } catch (e) {
       hasMoreData = false;
+    } finally {
+      _isLoadInprogress = false;
+      notifyListeners();
     }
-    _pageCount = charactersResponse.info.pages;
-    _isLoadInprogress = false;
-    notifyListeners();
   }
 
   Future<void> setup() async {
-    _currentPage = 0;
+    _currentPage = 1;
     _pageCount = 1;
     _characters.clear();
     await loadNextPage();
+    notifyListeners();
   }
 
-  Future<void> loadFilteredCharacters(
-    String status, 
-    String species, 
-    int page
-  ) async {
+
+
+
+  Future<void> loadFilteredCharacters(String status, String species, int page) async {
     _status = status;
     _species = species;
     await setup();

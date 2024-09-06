@@ -17,7 +17,9 @@ dependencies:
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
   shared_preferences: ^2.2.3
-  
+  connectivity_plus: ^3.0.3
+  hive_flutter: ^1.1.0
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
@@ -30,10 +32,12 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   json_serializable: ^6.8.0
   build_runner: ^2.4.9
-  
+  hive_generator: ^2.0.1
 
 flutter:
   uses-material-design: true
   assets:
       - assets/
       - assets/icons/
+      - assets/images/
+      
