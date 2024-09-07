@@ -20,6 +20,7 @@ class _CharactersListState extends State<CharactersList> {
   String selectedStatus = '';
   String selectedSpecies = '';
   final networkConnection = NetworkConnection();
+
   @override
   void initState() {
     super.initState();
@@ -112,7 +113,7 @@ class _CharactersListState extends State<CharactersList> {
             //color: Color.fromARGB(255, 242, 242, 242),
 
             child: model.characters.length == 0 ?
-            Center(child: Text("No data available")) :
+            Center(child: Text('No available data')) :
             ListView.builder(
                 controller: controller,
                 itemCount: model.characters.length ?? 0,

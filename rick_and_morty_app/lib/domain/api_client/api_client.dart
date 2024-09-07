@@ -12,11 +12,13 @@ class ApiClient {
 
   ApiClient(
     this.charactersBox,
+    this.episodesBox,
   );
 
   final _client = HttpClient();
   static const _host = 'https://rickandmortyapi.com/api';
   final Box<Character> charactersBox;
+  final Box<Episode> episodesBox;
 
   Future<CharactersResponse> getAllCharacters(int page) async {
     final ApiInfo apiInfo = ApiInfo(count: 20, pages: 1);
@@ -57,7 +59,17 @@ class ApiClient {
   }
 
   Future<Character> getCharacter(int chracterId) async {
+    try {
+      final character = await _fetchCharacter(chracterId);
+      charactersBox.put(chracterId, character);
+      return character;
+    } catch(e){
+      return charactersBox.get(chracterId)!;
+    }
 
+  }
+
+  Future<Character> _fetchCharacter(int chracterId) {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = Character.fromJson(jsonMap);
@@ -73,7 +85,17 @@ class ApiClient {
 
   Future<Episode> getEpisode(int episodeId) async {
 
-    parser(json) {
+    try {
+      final episode = await _fetchEpisode(episodeId);
+      episodesBox.put(episodeId, episode);
+      return episode;
+    } catch(e){
+      return episodesBox.get(episodeId)!;
+    }
+  }
+
+  Future<Episode> _fetchEpisode(int episodeId) {
+      parser(json) {
       final jsonMap = json as Map<String, dynamic>;
       return Episode.fromJson(jsonMap);
     }

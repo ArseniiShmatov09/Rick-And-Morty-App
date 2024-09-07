@@ -6,14 +6,17 @@ import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/entities/characters_response.dart';
 import 'package:rick_and_morty_app/ui/navigation/main_navigation.dart';
 
+import '../entities/episode.dart';
+
 class CharactersListModel extends ChangeNotifier {
 
-  CharactersListModel(this.charactersBox) {
-    _apiClient = ApiClient(charactersBox);
+  CharactersListModel(this.charactersBox, this.episodesBox) {
+    _apiClient = ApiClient(charactersBox, episodesBox);
   }
 
   late final ApiClient _apiClient;
   final Box<Character> charactersBox;
+  final Box<Episode> episodesBox;
 
   final _characters = <Character>[];
 
@@ -61,8 +64,6 @@ class CharactersListModel extends ChangeNotifier {
     await loadNextPage();
     notifyListeners();
   }
-
-
 
 
   Future<void> loadFilteredCharacters(String status, String species, int page) async {

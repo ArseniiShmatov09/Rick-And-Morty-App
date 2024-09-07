@@ -25,6 +25,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   const String charactersBoxName = 'characters_box';
+  const String episodesBoxName = 'episodes_box';
 
   await Hive.initFlutter();
 
@@ -35,11 +36,13 @@ Future<void> main() async {
   Hive.registerAdapter(LocationInfoAdapter());
 
   final charactersBox = await Hive.openBox<Character>(charactersBoxName);
+  final episodesBox = await Hive.openBox<Episode>(episodesBoxName);
 
   runApp(
     MainApp(
       preferences: prefs,
       charactersBox: charactersBox,
+      episodeBox: episodesBox,
     )
   );
 }
@@ -49,16 +52,18 @@ class MainApp extends StatelessWidget {
     super.key,
     required this.preferences,
     required this.charactersBox,
+    required this.episodeBox,
   });
 
   final SharedPreferences preferences;
   final Box<Character> charactersBox;
+  final Box<Episode> episodeBox;
   final networkConnection = NetworkConnection();
 
   @override
   Widget build(BuildContext context) {
     final settingsRepository = SettingsRepository(preferences: preferences);
-    final mainNavigation = MainNavigation(charactersBox);
+    final mainNavigation = MainNavigation(charactersBox, episodeBox);
     return  BlocProvider(
       create: (context) => ThemeCubit(settingsRepository: settingsRepository,),
       child: BlocBuilder<ThemeCubit, ThemeState>(

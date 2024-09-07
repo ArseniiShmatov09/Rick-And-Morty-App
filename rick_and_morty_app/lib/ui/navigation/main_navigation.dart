@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty_app/bloc/character_details/character_delails_bloc.dart';
+import 'package:rick_and_morty_app/domain/entities/episode.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
 import 'package:rick_and_morty_app/domain/models/characters_list_model.dart';
 import 'package:rick_and_morty_app/ui/pages/character_details.dart/character_details.dart';
@@ -22,10 +25,12 @@ abstract class MainNavigationRouteNames {
 class MainNavigation {
 
   final Box<Character> charactersBox;
+  final Box<Episode> episodesBox;
 
   MainNavigation(
-      this.charactersBox,
-      );
+    this.charactersBox,
+    this.episodesBox,
+  );
 
   String initialRoute =  MainNavigationRouteNames.mainScreen;
 
@@ -33,7 +38,7 @@ class MainNavigation {
     MainNavigationRouteNames.settings: (context) => SettingsPage(),
     MainNavigationRouteNames.offlineMode: (context) => InternetCheckScreen(),
     MainNavigationRouteNames.mainScreen: (context) => ChangeNotifierProvider(
-      create: (context) => CharactersListModel(charactersBox),
+      create: (context) => CharactersListModel(charactersBox, episodesBox),
       child: MainScreen(),
     ),
   };
@@ -44,9 +49,9 @@ class MainNavigation {
         final arguments = settings.arguments;
         final characterId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => CharacterModel(charactersBox, characterId),
-            child: CharacterDetails(),
+          builder: (context) => BlocProvider(
+            create: (context) => CharacterDetailsBloc(charactersBox, episodesBox),
+            child: CharacterDetails(charactersBox: charactersBox, episodesBox : episodesBox, characterId: characterId,),
           ),
         );
       default:
