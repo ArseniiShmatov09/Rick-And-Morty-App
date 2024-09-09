@@ -3,11 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/domain/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
+import 'package:intl/intl.dart';
 
 import '../../domain/entities/episode.dart';
 
-part 'character_delails_state.dart';
-part 'character_delails_event.dart';
+part 'character_details_state.dart';
+part 'character_details_event.dart';
 
 class CharacterDetailsBloc
     extends Bloc<CharacterDetailsEvent, CharacterDetailsState> {
@@ -30,10 +31,15 @@ class CharacterDetailsBloc
         emit(const CharacterDetailsLoading());
       }
 
-      final characeterDetails =
+      final character =
         await _apiClient.getCharacter(event.characterId);
 
-      emit(CharacterDetailsLoaded(characeterDetails));
+
+      final firstEpisodeUrl = character?.episode.first;
+      final episodeId = firstEpisodeUrl?.split('/').last;
+      final firstEpisode = await _apiClient.getEpisode(int.parse(episodeId ?? ''));
+
+      emit(CharacterDetailsLoaded(character, firstEpisode));
     } catch (e, st) {
       emit(CharacterDetailsLoadingFailure(e));
     }

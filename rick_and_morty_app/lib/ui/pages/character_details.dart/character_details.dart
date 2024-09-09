@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:rick_and_morty_app/bloc/character_details/character_delails_bloc.dart';
+import 'package:rick_and_morty_app/bloc/character_details/character_details_bloc.dart';
 import 'package:rick_and_morty_app/domain/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/entities/character.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
@@ -36,61 +36,50 @@ class _CharacterDetailsState extends State<CharacterDetails> {
     this.charactersBox,
     this.episodesBox
   ){
-    _characeterDetailsBloc = CharacterDetailsBloc(charactersBox, episodesBox);
+    _characterDetailsBloc = CharacterDetailsBloc(charactersBox, episodesBox);
   }
   final networkConnection = NetworkConnection();
 
   late final Box<Character> charactersBox;
   late final Box<Episode> episodesBox;
 
-  late final CharacterDetailsBloc _characeterDetailsBloc;
+  late final CharacterDetailsBloc _characterDetailsBloc;
   @override
   void initState() {
     super.initState();
-    _characeterDetailsBloc.add(LoadCharacterDetails(characterId: widget.characterId));
+    _characterDetailsBloc.add(LoadCharacterDetails(characterId: widget.characterId));
   }
 
   @override
   Widget build(BuildContext context) {
-    //final model = context.watch<CharacterModel>();
-
-    //final character = model.character;
-
-
-    //String? characterType = model.character?.type;
-   // if(characterType == '' || characterType == null){ characterType = 'unknown';}
-
-    // if (model.isLoadInprogress) {
-    //   return const Center(
-    //     child: SpinKitFadingCircle(
-    //       color: Colors.grey,
-    //     ),
-    //   );
-    // }
-
-    // if (character == null) {
-    //   return Scaffold(
-    //     appBar: AppBar(
-    //       title: const Text('Unknown Character'),
-    //       backgroundColor: const Color.fromARGB(222, 145, 140, 140),
-    //     ),
-    //     body: const Center(
-    //       child: Text('No available data'),
-    //     ),
-    //   );
-    // }
 
     return Scaffold(
       appBar: AppBar(
-        //title: Text(model.character?.name ?? 'Unknown'),
-        backgroundColor: Color.fromARGB(222, 145, 140, 140),
-
-    ),
+        backgroundColor: const Color.fromARGB(222, 145, 140, 140),
+        title: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
+          bloc: _characterDetailsBloc,
+          builder: (context, state) {
+            if (state is CharacterDetailsLoaded) {
+              return Text(state.character?.name ?? 'Character Details');
+            }
+            return const Text('');
+          },
+        ),
+      ),
       body: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
-        bloc: _characeterDetailsBloc,
+        bloc: _characterDetailsBloc,
         builder: (context, state) {
+          if (state is CharacterDetailsLoading) {
+            return Center(
+              child: SpinKitFadingCircle(
+                color: Colors.grey,
+              )
+            );
+          }
           if (state is CharacterDetailsLoaded) {
             final character = state.character;
+            final firstEpisode = state.firstEpisode;
+
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -118,7 +107,8 @@ class _CharacterDetailsState extends State<CharacterDetails> {
                   Center(
                     child: Text(
                       character?.name ?? '',
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -130,17 +120,14 @@ class _CharacterDetailsState extends State<CharacterDetails> {
                   _buildInfoRow('Gender:', character?.gender ?? ''),
                   _buildInfoRow('Origin:', character?.origin.name ?? ''),
                   _buildInfoRow('Location:', character?.location.name ?? ''),
-                  //_buildInfoRow('Episodes:', model.firstEpisode?.name ?? ''),
-                  //_buildInfoRow('Created at:', model.formattedDateOfCreation?? ''),
-
-                  //_buildInfoRow('Type:', characterType)
+                  _buildInfoRow('Episodes:', firstEpisode?.name ?? ''),
+                  _buildInfoRow('Type:', character.type == '' ? 'Unknown' : character.type!),
 
                 ],
               ),
             );
-
           }
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: Text('No available data'));
         }
       ),
     );

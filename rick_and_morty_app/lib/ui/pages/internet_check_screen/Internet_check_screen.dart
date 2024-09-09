@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:rick_and_morty_app/domain/models/network_connection.dart';
 import 'package:rick_and_morty_app/ui/navigation/main_navigation.dart';
 
@@ -36,7 +37,11 @@ class _InternetCheckScreenState extends State<InternetCheckScreen> {
       backgroundColor: Colors.black,
       body: Center(
         child: isLoading
-            ? CircularProgressIndicator()
+            ? Center(
+                child: SpinKitFadingCircle(
+                  color: Colors.grey,
+                )
+              )
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
