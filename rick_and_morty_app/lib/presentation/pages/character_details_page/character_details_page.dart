@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/presentation/bloc/character_details/character_details_bloc.dart';
-import 'package:rick_and_morty_app/data/entities/character.dart';
-import 'package:rick_and_morty_app/data/entities/episode.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/widgets/loading_indicator_widget.dart';
 import 'character_details_info_rows_widget.dart';
@@ -12,13 +9,9 @@ import 'header_details_info_widget.dart';
 class CharacterDetailsPage extends StatefulWidget {
   const CharacterDetailsPage({
     super.key,
-    required this.charactersBox,
-    required this.episodesBox,
     required this.characterId,
   });
 
-  final Box<Character> charactersBox;
-  final Box<Episode> episodesBox;
   final int characterId;
 
   @override
@@ -32,7 +25,7 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _characterDetailsBloc = CharacterDetailsBloc(widget.charactersBox, widget.episodesBox);
+    _characterDetailsBloc = CharacterDetailsBloc();
     _characterDetailsBloc.add(LoadCharacterDetails(characterId: widget.characterId));
   }
 

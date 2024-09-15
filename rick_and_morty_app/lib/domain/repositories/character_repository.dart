@@ -1,24 +1,24 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import '../../data/entities/character.dart';
+import '../interfaces/abstract_character_repository.dart';
 
-class CharacterRepository {
+class CharacterRepository implements AbstractCharacterRepository {
 
   CharacterRepository(
-    this.charactersBox,
     this.apiClient,
   );
 
-  final Box<Character> charactersBox;
   final ApiClient apiClient;
 
-  Future<Character> getCharacter(int chracterId) async {
+  @override
+  Future<Character> getCharacter(int characterId) async {
     try {
-      final character = await _fetchCharacter(chracterId);
-      charactersBox.put(chracterId, character);
+      final character = await _fetchCharacter(characterId);
+      apiClient.charactersBox.put(characterId, character);
       return character;
     } catch(e){
-      return charactersBox.get(chracterId)!;
+      return apiClient.charactersBox.get(characterId)!;
     }
   }
 

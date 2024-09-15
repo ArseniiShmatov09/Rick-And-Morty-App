@@ -1,25 +1,24 @@
-import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import '../../data/entities/episode.dart';
+import '../interfaces/abstract_episode_repository.dart';
 
-class EpisodeRepository {
+class EpisodeRepository implements AbstractEpisodeRepository{
 
   EpisodeRepository(
-    this.episodesBox,
     this.apiClient,
   );
 
-  final Box<Episode> episodesBox;
   final ApiClient apiClient;
-
+  
+  @override
   Future<Episode> getEpisode(int episodeId) async {
 
     try {
       final episode = await _fetchEpisode(episodeId);
-      episodesBox.put(episodeId, episode);
+      apiClient.episodesBox.put(episodeId, episode);
       return episode;
     } catch(e){
-      return episodesBox.get(episodeId)!;
+      return apiClient.episodesBox.get(episodeId)!;
     }
   }
 

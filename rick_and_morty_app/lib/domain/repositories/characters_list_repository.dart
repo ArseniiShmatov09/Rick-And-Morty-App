@@ -1,19 +1,19 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
 import '../../data/entities/api_info.dart';
 import '../../data/entities/character.dart';
 import '../../data/entities/characters_response.dart';
 
-class CharactersListRepository {
+class CharactersListRepository implements AbstractCharactersListRepository {
 
   CharactersListRepository(
-    this.charactersBox,
     this.apiClient,
   );
 
-  final Box<Character> charactersBox;
   final ApiClient apiClient;
 
+  @override
   Future<CharactersResponse> getAllCharacters(int page) async {
     final ApiInfo apiInfo = ApiInfo(count: 20, pages: 1);
     List<Character> charactersList = [];
@@ -26,16 +26,17 @@ class CharactersListRepository {
       charactersList = charactersResponse.characters;
       final charactersMap = {for (var e in charactersList) e.name: e};
       if(page == 1) {
-        await charactersBox.putAll(charactersMap);
+        await apiClient.charactersBox.putAll(charactersMap);
       }
     } catch (e) {
-      charactersList = charactersBox.values.toList();
+      charactersList = apiClient.charactersBox.values.toList();
       charactersResponse.characters = charactersList;
     }
 
     return charactersResponse;
   }
 
+  @override
   Future<CharactersResponse> getFilteredCharacters(
       String? status,
       String? species,

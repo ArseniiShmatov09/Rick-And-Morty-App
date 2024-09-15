@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rick_and_morty_app/data/entities/character.dart';
 import 'package:rick_and_morty_app/data/entities/characters_response.dart';
-import 'package:rick_and_morty_app/domain/repositories/characters_list_repository.dart';
+import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
-import '../../data/entities/episode.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
-  CharactersListModel(this.charactersBox, this.episodesBox) {
-    _apiClient = ApiClient(charactersBox, episodesBox);
-    _charactersListRepository = CharactersListRepository(charactersBox, _apiClient);
-  }
-
-  late final CharactersListRepository _charactersListRepository;
-  late final ApiClient _apiClient;
-  final Box<Character> charactersBox;
-  final Box<Episode> episodesBox;
+  final AbstractCharactersListRepository
+    _charactersListRepository = GetIt.I<AbstractCharactersListRepository>();
 
   final _characters = <Character>[];
 

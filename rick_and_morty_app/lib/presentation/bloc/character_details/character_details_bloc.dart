@@ -1,30 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rick_and_morty_app/data/entities/character.dart';
+import 'package:rick_and_morty_app/domain/interfaces/abstract_episode_repository.dart';
 import '../../../data/entities/episode.dart';
-import '../../../domain/repositories/character_repository.dart';
-import '../../../domain/repositories/episode_repository.dart';
+import '../../../domain/interfaces/abstract_character_repository.dart';
 
 part 'character_details_state.dart';
 part 'character_details_event.dart';
 
 class CharacterDetailsBloc
     extends Bloc<CharacterDetailsEvent, CharacterDetailsState> {
-  CharacterDetailsBloc(this.charactersBox, this.episodesBox) : super(const CharacterDetailsState()) {
-    _apiClient = ApiClient(charactersBox, episodesBox);
-    _characterRepository = CharacterRepository(charactersBox, _apiClient);
-    _episodeRepository = EpisodeRepository(episodesBox, _apiClient);
-    on<LoadCharacterDetails>(_load);
+  CharacterDetailsBloc() :
+    super(const CharacterDetailsState()) {
+       on<LoadCharacterDetails>(_load);
   }
 
-  late final ApiClient _apiClient;
-  late final EpisodeRepository _episodeRepository;
-  late final CharacterRepository _characterRepository;
+  final AbstractEpisodeRepository
+    _episodeRepository = GetIt.I<AbstractEpisodeRepository>();
 
-  final Box<Character> charactersBox;
-  final Box<Episode> episodesBox;
+  final AbstractCharacterRepository
+    _characterRepository = GetIt.I<AbstractCharacterRepository>();
 
   Future<void> _load(
     LoadCharacterDetails event,
