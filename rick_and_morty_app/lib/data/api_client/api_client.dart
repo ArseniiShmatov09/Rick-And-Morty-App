@@ -25,7 +25,7 @@ class ApiClient {
     final url = _makeUri(path, parameters);
     final request = await _client.getUrl(url);
     final response = await request.close();
-    final dynamic json = (await response.jsoneDecode());
+    final dynamic json = (await response.jsonDecode());
     final result = parser(json);
     return result;
   }
@@ -41,7 +41,7 @@ class ApiClient {
 }
 
 extension HttpClientResponseJsonDecode on HttpClientResponse {
-  Future<dynamic> jsoneDecode() async {
+  Future<dynamic> jsonDecode() async {
     return transform(utf8.decoder).toList().then((value){
       final result = value.join();
       return result;

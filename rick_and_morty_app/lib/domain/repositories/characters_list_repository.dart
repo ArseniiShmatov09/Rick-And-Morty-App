@@ -1,4 +1,3 @@
-import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
 import '../../data/entities/api_info.dart';

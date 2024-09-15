@@ -38,7 +38,7 @@ class _CharactersListWidgetState extends State<CharactersListWidget> {
 
   void _scrollToTop() {
     Future.delayed(
-      Duration(milliseconds: 300),
+      const Duration(milliseconds: 300),
           () {
         controller.jumpTo(0);
       },
@@ -81,26 +81,26 @@ class _CharactersListWidgetState extends State<CharactersListWidget> {
         ),
         Expanded(
           child: model.characters.isEmpty
-              ? const Center(child: Text('No available data'))
-              : ListView.builder(
-            controller: controller,
-            itemCount: model.characters.length + (model.hasMoreData ? 1 : 0),
-            itemExtent: 150,
-            itemBuilder: (BuildContext context, int index) {
-              if (index < model.characters.length) {
-                final character = model.characters[index];
-                return CharacterListItemWidget(
-                  character: character,
-                  isOffline: isOffline,
-                  onTap: () => model.onCharacterTap(context, index),
-                );
-              } else {
-                return model.hasMoreData
+          ? const Center(child: Text('No available data'))
+          : ListView.builder(
+              controller: controller,
+              itemCount: model.characters.length + (model.hasMoreData ? 1 : 0),
+              itemExtent: 150,
+              itemBuilder: (BuildContext context, int index) {
+                if (index < model.characters.length) {
+                  final character = model.characters[index];
+                  return CharacterListItemWidget(
+                    character: character,
+                    isOffline: isOffline,
+                    onTap: () => model.onCharacterTap(context, index),
+                  );
+                } else {
+                  return model.hasMoreData
                     ? const LoadingIndicatorWidget()
                     : const SizedBox(height: 0);
-              }
-            },
-          ),
+                  }
+              },
+            ),
         ),
       ],
     );

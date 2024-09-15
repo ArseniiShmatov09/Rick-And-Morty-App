@@ -1,4 +1,7 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 import '../../../data/entities/character.dart';
 
 class CharacterListItemWidget extends StatelessWidget {
@@ -21,8 +24,8 @@ class CharacterListItemWidget extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(222, 185, 184, 184),
-              border: Border.all(color: Colors.black.withOpacity(0.2)),
+              color: AppColors.mainGrey,
+              border: Border.all(color: AppColors.mainBlack),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             clipBehavior: Clip.hardEdge,
@@ -40,7 +43,7 @@ class CharacterListItemWidget extends StatelessWidget {
                       children: [
                         Text(
                           character.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -58,14 +61,14 @@ class CharacterListItemWidget extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
+                color: AppColors.mainLightGray,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
                 '${character.status} - ${character.species}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12,
-                  color: Colors.black54,
+                  color: AppColors.mainBlack,
                 ),
               ),
             ),

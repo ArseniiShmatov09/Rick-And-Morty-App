@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/data/entities/character.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class HeaderDetailsInfoWidget extends StatelessWidget {
   final Character? character;
   final NetworkConnection networkConnection;
 
   const HeaderDetailsInfoWidget({
-    Key? key,
+    super.key,
     required this.character,
     required this.networkConnection,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class HeaderDetailsInfoWidget extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           '${character?.status} - ${character?.species}',
-          style: const TextStyle(fontSize: 18, color: Colors.grey),
+          style: TextStyle(fontSize: 18, color: AppColors.mainGrey),
         ),
       ],
     );

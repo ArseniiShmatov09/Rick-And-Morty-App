@@ -1,45 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 final darkTheme = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: Color.fromARGB(255, 11, 11, 11),
+  scaffoldBackgroundColor: AppColors.mainBlack,
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.mainGrey,
+  ),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Colors.black,
+    seedColor: AppColors.mainBlack,
     brightness: Brightness.dark,
   ),
   dropdownMenuTheme: DropdownMenuThemeData(
     menuStyle: MenuStyle(
       backgroundColor: MaterialStateProperty.all(
-        Color.fromARGB(222, 145, 140, 140),
+        AppColors.mainGrey,
       ),
     ),
   ),
   navigationBarTheme: NavigationBarThemeData(
     backgroundColor: Colors.black,
-    indicatorColor: Colors.white38,
+    indicatorColor: AppColors.mainGrey,
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: Colors.black,
-    hintStyle: TextStyle(color: Colors.white),
+    fillColor: AppColors.mainBlack,
+    hintStyle: TextStyle(color: AppColors.mainWhite),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: BorderSide(color: AppColors.mainWhite),
     ),
   ),
 );
 
 final lightTheme = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: Color.fromARGB(255, 242, 242, 242),
+  scaffoldBackgroundColor: AppColors.mainWhite,
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.mainGrey,
+   // color: AppColors.mainWhite,
+  ),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Color.fromARGB(255, 242, 242, 242),
+    seedColor: AppColors.mainWhite,
     brightness: Brightness.light,
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Color.fromARGB(255, 242, 242, 242),
-    selectedItemColor: Colors.black,
-    unselectedItemColor: Colors.grey,
+  navigationBarTheme: NavigationBarThemeData(
+    backgroundColor: AppColors.mainWhite,
+    indicatorColor: AppColors.mainGrey,
   ),
-
 );

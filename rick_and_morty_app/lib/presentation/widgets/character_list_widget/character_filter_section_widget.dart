@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class CharacterFilterSectionWidget extends StatelessWidget {
   final String selectedStatus;
@@ -9,18 +10,18 @@ class CharacterFilterSectionWidget extends StatelessWidget {
   final VoidCallback onSearchPressed;
 
   const CharacterFilterSectionWidget({
-    Key? key,
+    super.key,
     required this.selectedStatus,
     required this.selectedSpecies,
     required this.onStatusChanged,
     required this.onSpeciesChanged,
     required this.isOffline,
     required this.onSearchPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (isOffline) return SizedBox.shrink();
+    if (isOffline) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -31,7 +32,7 @@ class CharacterFilterSectionWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     labelText: "Status",
@@ -50,7 +51,7 @@ class CharacterFilterSectionWidget extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 12),
                     labelText: "Species",
@@ -74,15 +75,15 @@ class CharacterFilterSectionWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onSearchPressed,
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                backgroundColor: Colors.grey,
-                foregroundColor: Colors.grey[300],
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                backgroundColor: AppColors.mainGrey,
+                foregroundColor: AppColors.mainLightGray,
               ),
-              child: const Text(
+              child: Text(
                 'Search',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white
+                  color: AppColors.mainWhite,
                 ),
               ),
             ),

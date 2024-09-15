@@ -1,5 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 import 'package:rick_and_morty_app/presentation/bloc/character_details/character_details_bloc.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/widgets/loading_indicator_widget.dart';
@@ -33,7 +36,7 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(222, 145, 140, 140),
+        backgroundColor: AppColors.mainGrey,
         title: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
           bloc: _characterDetailsBloc,
           builder: (context, state) {

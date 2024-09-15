@@ -1,5 +1,8 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
 
 import '../widgets/loading_indicator_widget.dart';
@@ -21,7 +24,7 @@ class _InternetCheckPageState extends State<InternetCheckPage> {
     });
 
     await networkConnection.reload();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     setState(() {
       isLoading = false;
@@ -35,30 +38,30 @@ class _InternetCheckPageState extends State<InternetCheckPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.mainBlack,
       body: Center(
         child: isLoading
-        ? LoadingIndicatorWidget()
+        ? const LoadingIndicatorWidget()
         : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Please check your internet connection and try again",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18, color: Colors.white38),
+              style: TextStyle(fontSize: 18, color: AppColors.mainGrey),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _checkConnection,
-              child: Text("Try again"),
+              child: const Text("Try again"),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(MainNavigationRouteNames.mainScreen);
               },
-              child: Text("Continue offline"),
+              child: const Text("Continue offline"),
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import '../../data/entities/character.dart';
 import '../interfaces/abstract_character_repository.dart';
@@ -22,7 +21,7 @@ class CharacterRepository implements AbstractCharacterRepository {
     }
   }
 
-  Future<Character> _fetchCharacter(int chracterId) {
+  Future<Character> _fetchCharacter(int characterId) {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = Character.fromJson(jsonMap);
@@ -30,7 +29,7 @@ class CharacterRepository implements AbstractCharacterRepository {
     }
 
     final result = apiClient.get(
-      '/character/$chracterId',
+      '/character/$characterId',
       parser,
     );
     return result;

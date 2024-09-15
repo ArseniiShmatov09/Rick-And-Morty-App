@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class LoadingIndicatorWidget extends StatelessWidget {
   const LoadingIndicatorWidget({
@@ -8,9 +9,9 @@ class LoadingIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
         child: SpinKitFadingCircle(
-          color: Colors.grey,
+          color: AppColors.mainGrey,
         )
     );
   }

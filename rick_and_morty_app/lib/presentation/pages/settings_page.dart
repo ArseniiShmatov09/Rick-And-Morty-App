@@ -9,11 +9,10 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: const Color.fromARGB(222, 185, 184, 184),
       ),
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: ThemeSelectionCardWidget(),
         ),
       ),

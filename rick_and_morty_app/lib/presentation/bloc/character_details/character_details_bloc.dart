@@ -35,13 +35,13 @@ class CharacterDetailsBloc
       final character =
         await _characterRepository.getCharacter(event.characterId);
 
-      final firstEpisodeUrl = character?.episode.first;
-      final episodeId = firstEpisodeUrl?.split('/').last;
-      final firstEpisode = await _episodeRepository.getEpisode(int.parse(episodeId ?? ''));
+      final firstEpisodeUrl = character.episode.first;
+      final episodeId = firstEpisodeUrl.split('/').last;
+      final firstEpisode = await _episodeRepository.getEpisode(int.parse(episodeId));
 
       emit(CharacterDetailsLoaded(character, firstEpisode));
 
-    } catch (e, st) {
+    } catch (e) {
       emit(CharacterDetailsLoadingFailure(e));
     }
   }

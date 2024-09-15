@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-      body: CharactersListWidget(),
+      body: const CharactersListWidget(),
     );
   }
 

@@ -7,10 +7,10 @@ class CharacterDetailsInfoRowsWidget extends StatelessWidget {
   final Episode? firstEpisode;
 
   const CharacterDetailsInfoRowsWidget({
-    Key? key,
+    super.key,
     required this.character,
     required this.firstEpisode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

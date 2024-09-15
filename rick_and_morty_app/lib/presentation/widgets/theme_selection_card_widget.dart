@@ -1,6 +1,6 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 import '../bloc/theme/theme_cubit.dart';
 import '../bloc/theme/theme_state.dart';
 
@@ -21,27 +21,27 @@ class ThemeSelectionCardWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        color: const Color.fromARGB(222, 185, 184, 184),
+        color: AppColors.mainGrey,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.brightness_6,
-                    color: Colors.black,
+                    color: AppColors.mainBlack,
                     size: 28,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     'Choose a theme',
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.mainBlack,
                     ),
                   ),
                 ],
@@ -52,7 +52,7 @@ class ThemeSelectionCardWidget extends StatelessWidget {
                   return Column(
                     children: [
                       RadioListTile<Brightness>(
-                        activeColor: Colors.black,
+                        activeColor: AppColors.mainBlack,
                         title: const Text(
                           'Light',
                           style: TextStyle(fontSize: 20),
@@ -63,7 +63,7 @@ class ThemeSelectionCardWidget extends StatelessWidget {
                             _onThemeChanged(context, brightness),
                       ),
                       RadioListTile<Brightness>(
-                        activeColor: Colors.black,
+                        activeColor: AppColors.mainBlack,
                         title: const Text(
                           'Dark',
                           style: TextStyle(fontSize: 20),
