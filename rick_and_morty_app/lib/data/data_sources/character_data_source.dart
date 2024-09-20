@@ -1,38 +1,37 @@
-import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:dio/dio.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_character_data_source.dart';
 import '../../data/dto/character.dart';
 
 class CharacterDataSource implements AbstractCharacterDataSource {
 
   CharacterDataSource(
-    this.apiClient,
+    this.dio,
+    this.charactersBox,
   );
 
-  final ApiClient apiClient;
+  final Dio dio;
+  final Box<CharacterDTO> charactersBox;
 
   @override
   Future<CharacterDTO> loadCharacter(int characterId) async {
     try {
       final character = await _fetchCharacter(characterId);
-      apiClient.charactersBox.put(characterId, character);
+      charactersBox.put(characterId, character);
       return character;
     } catch(e){
-      return apiClient.charactersBox.get(characterId)!;
+      return charactersBox.get(characterId)!;
     }
   }
 
-  Future<CharacterDTO> _fetchCharacter(int characterId) {
-    parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final response = CharacterDTO.fromJson(jsonMap);
-      return response;
-    }
+  Future<CharacterDTO> _fetchCharacter(int characterId) async{
 
-    final result = apiClient.get(
-      '/character/$characterId',
-      parser,
+    final Response<Map<String, dynamic>> response  = await dio.get(
+      'https://rickandmortyapi.com/api/character/$characterId'
     );
-    return result;
+    final data = response.data as Map<String, dynamic>;
+    final character = CharacterDTO.fromJson(data);
+    return character;
   }
 
 }

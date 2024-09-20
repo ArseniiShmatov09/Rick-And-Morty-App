@@ -1,4 +1,5 @@
-import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:dio/dio.dart';
+import 'package:hive_flutter/adapters.dart';
 import '../dto/api_info.dart';
 import '../dto/character.dart';
 import '../dto/characters_response.dart';
@@ -7,10 +8,12 @@ import 'interfaces/abstract_characters_list_data_source.dart';
 class CharactersListDataSource implements AbstractCharactersListDataSource {
 
   CharactersListDataSource(
-    this.apiClient,
+    this.dio,
+    this.charactersBox,
   );
 
-  final ApiClient apiClient;
+  final Dio dio;
+  final Box<CharacterDTO> charactersBox;
 
   @override
   Future<CharactersResponseDTO> loadAllCharacters(int page) async {
@@ -25,10 +28,10 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
       charactersList = charactersResponse.characters;
       final charactersMap = {for (var e in charactersList) e.name: e};
       if(page == 1) {
-        await apiClient.charactersBox.putAll(charactersMap);
+        await charactersBox.putAll(charactersMap);
       }
     } catch (e) {
-      charactersList = apiClient.charactersBox.values.toList();
+      charactersList = charactersBox.values.toList();
       charactersResponse.characters = charactersList;
     }
 
@@ -41,37 +44,29 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
       String? species,
       int page,
       ) async {
-    parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final response = CharactersResponseDTO.fromJson(jsonMap);
-      return response;
-    }
-    final result = apiClient.get(
-      '/character',
-      parser,
-      <String, dynamic>{
+
+    final Response<Map<String, dynamic>> response = await dio.get(
+      'https://rickandmortyapi.com/api/character',
+      queryParameters: <String, dynamic>{
         'status': status,
         'species': species,
         'page': page.toString(),
       },
     );
-    return result;
+    final data = response.data as Map<String, dynamic>;
+    final charactersList = CharactersResponseDTO.fromJson(data);
+    return charactersList;
   }
 
   Future<CharactersResponseDTO> _fetchAllCharacters(int page) async {
-
-    parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final response = CharactersResponseDTO.fromJson(jsonMap);
-      return response;
-    }
-
-    final result = apiClient.get(
-      '/character',
-      parser,
-      <String, dynamic> {'page': page.toString(),},
+    final Response<Map<String, dynamic>> response = await dio.get(
+      'https://rickandmortyapi.com/api/character',
+      queryParameters: <String, dynamic>{
+        'page': page.toString(),
+      },
     );
-    return result;
+    final data = response.data as Map<String, dynamic>;
+    final charactersList = CharactersResponseDTO.fromJson(data);
+    return charactersList;
   }
-
 }

@@ -1,6 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_theme_repository.dart';
 import 'package:rick_and_morty_app/data/data_sources/characters_list_data_source.dart';
 import 'package:rick_and_morty_app/data/data_sources/episode_data_source.dart';
@@ -31,15 +31,14 @@ Future<void> initializeHive() async {
 void initializeGetIt(
   Box<CharacterDTO> charactersBox,
   Box<EpisodeDTO> episodesBox,
+  Dio dio,
   SharedPreferences prefs,
   ) {
   GetIt.I.registerLazySingleton<CharactersListRepository>(
     () => CharactersListRepositoryImpl(
       abstractCharactersListDataSource: CharactersListDataSource(
-          ApiClient(
-              charactersBox,
-              episodesBox
-          ),
+        dio,
+        charactersBox,
       ),
     ),
   );
@@ -47,10 +46,8 @@ void initializeGetIt(
   GetIt.I.registerLazySingleton<CharacterRepository>(
     () => CharacterRepositoryImpl(
       abstractCharacterDataSource: CharacterDataSource(
-        ApiClient(
-            charactersBox,
-            episodesBox
-        ),
+        dio,
+        charactersBox,
       ),
     ),
   );
@@ -58,10 +55,8 @@ void initializeGetIt(
   GetIt.I.registerLazySingleton<EpisodeRepository>(
     () => EpisodeRepositoryImpl(
       abstractEpisodeDataSource: EpisodeDataSource(
-          ApiClient(
-              charactersBox,
-              episodesBox
-          )
+        dio,
+        episodesBox,
       )
     ),
   );
@@ -81,8 +76,9 @@ Future<void> initializeApp() async {
 
   final charactersBox = await Hive.openBox<CharacterDTO>(charactersBoxName);
   final episodesBox = await Hive.openBox<EpisodeDTO>(episodesBoxName);
+  final dio = Dio();
 
-  initializeGetIt(charactersBox, episodesBox, prefs);
+  initializeGetIt(charactersBox, episodesBox, dio, prefs);
 
 }
 
