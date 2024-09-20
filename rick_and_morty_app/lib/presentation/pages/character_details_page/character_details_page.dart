@@ -42,8 +42,8 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
           builder: (context, state) {
             return Text(
               state is CharacterDetailsLoaded
-                  ? state.character.name
-                  : '',
+                ? state.character.name
+                : '',
             );
           },
         ),

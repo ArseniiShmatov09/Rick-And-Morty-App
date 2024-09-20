@@ -10,9 +10,9 @@ class LoadingIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: SpinKitFadingCircle(
-          color: AppColors.mainGrey,
-        )
+      child: SpinKitFadingCircle(
+        color: AppColors.mainGrey,
+      )
     );
   }
 }

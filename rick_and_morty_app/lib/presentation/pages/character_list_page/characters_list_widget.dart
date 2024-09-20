@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/presentation/models/characters_list_model.dart';
-import 'package:rick_and_morty_app/presentation/widgets/character_list_widget/character_filter_section_widget.dart';
-import 'package:rick_and_morty_app/presentation/widgets/character_list_widget/character_list_item_widget.dart';
+import 'package:rick_and_morty_app/presentation/pages/character_list_page/character_filter_section_widget.dart';
+import 'package:rick_and_morty_app/presentation/pages/character_list_page/character_list_item_widget.dart';
 import 'package:rick_and_morty_app/presentation/widgets/loading_indicator_widget.dart';
 import '../../../domain/utils/network_connection.dart';
 
-class CharactersListWidget extends StatefulWidget {
-  const CharactersListWidget({super.key});
+class CharactersListPage extends StatefulWidget {
+  const CharactersListPage({super.key});
 
   @override
-  State<CharactersListWidget> createState() => _CharactersListWidgetState();
+  State<CharactersListPage> createState() => _CharactersListPageState();
 }
 
-class _CharactersListWidgetState extends State<CharactersListWidget> {
+class _CharactersListPageState extends State<CharactersListPage> {
   final controller = ScrollController();
   String selectedStatus = '';
   String selectedSpecies = '';
