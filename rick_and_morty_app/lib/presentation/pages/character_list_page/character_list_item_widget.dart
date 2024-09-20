@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
-import '../../../data/entities/character.dart';
+import '../../../data/dto/character.dart';
 
 class CharacterListItemWidget extends StatelessWidget {
-  final Character character;
+  final CharacterDTO character;
   final bool isOffline;
   final VoidCallback onTap;
 

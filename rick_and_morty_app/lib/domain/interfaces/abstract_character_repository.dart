@@ -1,5 +1,5 @@
-import '../../data/entities/character.dart';
+import '../../data/dto/character.dart';
 
 abstract class AbstractCharacterRepository {
-  Future<Character> getCharacter(int characterId);
+  Future<CharacterDTO> getCharacter(int characterId);
 }

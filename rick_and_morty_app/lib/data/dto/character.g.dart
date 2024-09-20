@@ -6,17 +6,17 @@ part of 'character.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CharacterAdapter extends TypeAdapter<Character> {
+class CharacterAdapter extends TypeAdapter<CharacterDTO> {
   @override
   final int typeId = 2;
 
   @override
-  Character read(BinaryReader reader) {
+  CharacterDTO read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Character(
+    return CharacterDTO(
       id: fields[1] as int,
       name: fields[2] as String,
       status: fields[3] as String,
@@ -33,7 +33,7 @@ class CharacterAdapter extends TypeAdapter<Character> {
   }
 
   @override
-  void write(BinaryWriter writer, Character obj) {
+  void write(BinaryWriter writer, CharacterDTO obj) {
     writer
       ..writeByte(12)
       ..writeByte(1)
@@ -114,7 +114,7 @@ class LocationInfoAdapter extends TypeAdapter<LocationInfo> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
+CharacterDTO _$CharacterFromJson(Map<String, dynamic> json) => CharacterDTO(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       status: json['status'] as String,
@@ -130,7 +130,7 @@ Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
       created: json['created'] as String,
     );
 
-Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
+Map<String, dynamic> _$CharacterToJson(CharacterDTO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,

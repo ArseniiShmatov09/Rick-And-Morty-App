@@ -1,9 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rick_and_morty_app/data/entities/character.dart';
 import 'package:rick_and_morty_app/domain/interfaces/abstract_episode_repository.dart';
-import '../../../data/entities/episode.dart';
+import '../../../data/dto/character.dart';
+import '../../../data/dto/episode.dart';
 import '../../../domain/interfaces/abstract_character_repository.dart';
 
 part 'character_details_state.dart';

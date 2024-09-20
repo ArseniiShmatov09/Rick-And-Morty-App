@@ -1,6 +1,6 @@
 part of 'character_details_bloc.dart';
 
-abstract class CharacterDetailsEvent extends Equatable {
+sealed class CharacterDetailsEvent {
   const CharacterDetailsEvent();
 
   @override

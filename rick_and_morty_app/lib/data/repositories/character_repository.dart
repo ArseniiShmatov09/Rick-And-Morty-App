@@ -1,6 +1,6 @@
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
-import '../../data/entities/character.dart';
-import '../interfaces/abstract_character_repository.dart';
+import '../../data/dto/character.dart';
+import '../../domain/interfaces/abstract_character_repository.dart';
 
 class CharacterRepository implements AbstractCharacterRepository {
 
@@ -11,7 +11,7 @@ class CharacterRepository implements AbstractCharacterRepository {
   final ApiClient apiClient;
 
   @override
-  Future<Character> getCharacter(int characterId) async {
+  Future<CharacterDTO> getCharacter(int characterId) async {
     try {
       final character = await _fetchCharacter(characterId);
       apiClient.charactersBox.put(characterId, character);
@@ -21,10 +21,10 @@ class CharacterRepository implements AbstractCharacterRepository {
     }
   }
 
-  Future<Character> _fetchCharacter(int characterId) {
+  Future<CharacterDTO> _fetchCharacter(int characterId) {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      final response = Character.fromJson(jsonMap);
+      final response = CharacterDTO.fromJson(jsonMap);
       return response;
     }
 

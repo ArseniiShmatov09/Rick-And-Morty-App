@@ -1,8 +1,8 @@
-import '../../data/entities/characters_response.dart';
+import '../../data/dto/characters_response.dart';
 
 abstract class AbstractCharactersListRepository {
-  Future<CharactersResponse> getAllCharacters(int page);
-  Future<CharactersResponse> getFilteredCharacters(
+  Future<CharactersResponseDTO> getAllCharacters(int page);
+  Future<CharactersResponseDTO> getFilteredCharacters(
     String? status,
     String? species,
     int page,

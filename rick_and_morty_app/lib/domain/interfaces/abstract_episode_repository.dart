@@ -1,5 +1,5 @@
-import '../../data/entities/episode.dart';
+import '../../data/dto/episode.dart';
 
 abstract class AbstractEpisodeRepository {
-  Future<Episode> getEpisode(int episodeId);
+  Future<EpisodeDTO> getEpisode(int episodeId);
 }

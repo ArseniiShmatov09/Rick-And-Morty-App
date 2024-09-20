@@ -1,6 +1,6 @@
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
-import '../../data/entities/episode.dart';
-import '../interfaces/abstract_episode_repository.dart';
+import '../dto/episode.dart';
+import '../../domain/interfaces/abstract_episode_repository.dart';
 
 class EpisodeRepository implements AbstractEpisodeRepository{
 
@@ -11,7 +11,7 @@ class EpisodeRepository implements AbstractEpisodeRepository{
   final ApiClient apiClient;
   
   @override
-  Future<Episode> getEpisode(int episodeId) async {
+  Future<EpisodeDTO> getEpisode(int episodeId) async {
 
     try {
       final episode = await _fetchEpisode(episodeId);
@@ -22,10 +22,10 @@ class EpisodeRepository implements AbstractEpisodeRepository{
     }
   }
 
-  Future<Episode> _fetchEpisode(int episodeId) {
+  Future<EpisodeDTO> _fetchEpisode(int episodeId) {
     parser(json) {
       final jsonMap = json as Map<String, dynamic>;
-      return Episode.fromJson(jsonMap);
+      return EpisodeDTO.fromJson(jsonMap);
     }
 
     final result =  apiClient.get(

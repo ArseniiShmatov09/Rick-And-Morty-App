@@ -6,17 +6,17 @@ part of 'episode.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class EpisodeAdapter extends TypeAdapter<Episode> {
+class EpisodeAdapter extends TypeAdapter<EpisodeDTO> {
   @override
   final int typeId = 3;
 
   @override
-  Episode read(BinaryReader reader) {
+  EpisodeDTO read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Episode(
+    return EpisodeDTO(
       id: fields[0] as int,
       name: fields[1] as String,
       airDate: fields[2] as String,
@@ -28,7 +28,7 @@ class EpisodeAdapter extends TypeAdapter<Episode> {
   }
 
   @override
-  void write(BinaryWriter writer, Episode obj) {
+  void write(BinaryWriter writer, EpisodeDTO obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -62,7 +62,7 @@ class EpisodeAdapter extends TypeAdapter<Episode> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
+EpisodeDTO _$EpisodeFromJson(Map<String, dynamic> json) => EpisodeDTO(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       airDate: json['air_date'] as String,
@@ -74,7 +74,7 @@ Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
       created: DateTime.parse(json['created'] as String),
     );
 
-Map<String, dynamic> _$EpisodeToJson(Episode instance) => <String, dynamic>{
+Map<String, dynamic> _$EpisodeToJson(EpisodeDTO instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'air_date': instance.airDate,

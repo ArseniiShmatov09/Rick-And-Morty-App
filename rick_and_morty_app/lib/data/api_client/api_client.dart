@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:hive_flutter/adapters.dart';
-import 'package:rick_and_morty_app/data/entities/character.dart';
-import 'package:rick_and_morty_app/data/entities/episode.dart';
+import 'package:rick_and_morty_app/data/dto/character.dart';
+import 'package:rick_and_morty_app/data/dto/episode.dart';
 
 class ApiClient {
 
@@ -13,8 +13,8 @@ class ApiClient {
 
   final _client = HttpClient();
   static const _host = 'https://rickandmortyapi.com/api';
-  final Box<Character> charactersBox;
-  final Box<Episode> episodesBox;
+  final Box<CharacterDTO> charactersBox;
+  final Box<EpisodeDTO> episodesBox;
 
   Future<T> get<T>(
     String path,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/data/entities/character.dart';
-import 'package:rick_and_morty_app/data/entities/episode.dart';
+import 'package:rick_and_morty_app/data/dto/character.dart';
+import 'package:rick_and_morty_app/data/dto/episode.dart';
 
 class CharacterDetailsInfoRowsWidget extends StatelessWidget {
-  final Character? character;
-  final Episode? firstEpisode;
+  final CharacterDTO? character;
+  final EpisodeDTO? firstEpisode;
 
   const CharacterDetailsInfoRowsWidget({
     super.key,

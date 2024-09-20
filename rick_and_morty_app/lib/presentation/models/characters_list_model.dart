@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rick_and_morty_app/data/entities/character.dart';
-import 'package:rick_and_morty_app/data/entities/characters_response.dart';
 import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
+import '../../data/dto/character.dart';
+import '../../data/dto/characters_response.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
   final AbstractCharactersListRepository
     _charactersListRepository = GetIt.I<AbstractCharactersListRepository>();
 
-  final _characters = <Character>[];
+  final _characters = <CharacterDTO>[];
 
   int _currentPage = 1;
   int _pageCount = 1;
@@ -21,7 +21,7 @@ class CharactersListModel extends ChangeNotifier {
   bool _isLoadInProgress = false;
   bool hasMoreData = true;
 
-  List<Character> get characters => List.unmodifiable(_characters);
+  List<CharacterDTO> get characters => List.unmodifiable(_characters);
 
   Future<void> setup() async {
     _currentPage = 1;
@@ -31,7 +31,7 @@ class CharactersListModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<CharactersResponse> _loadCharacters(int nextPage) async {
+  Future<CharactersResponseDTO> _loadCharacters(int nextPage) async {
     if (_status == 'All') {
       _status = null;
     }

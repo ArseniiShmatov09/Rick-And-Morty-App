@@ -1,6 +1,6 @@
 part of 'character_details_bloc.dart';
 
-class CharacterDetailsState extends Equatable {
+class CharacterDetailsState  {
   const CharacterDetailsState();
 
   @override
@@ -14,8 +14,8 @@ class CharacterDetailsLoading extends CharacterDetailsState {
 class CharacterDetailsLoaded extends CharacterDetailsState {
   const CharacterDetailsLoaded(this.character, this.firstEpisode);
 
-  final Character character;
-  final Episode firstEpisode;
+  final CharacterDTO character;
+  final EpisodeDTO firstEpisode;
 
   @override
   List<Object?> get props => [character, firstEpisode];
