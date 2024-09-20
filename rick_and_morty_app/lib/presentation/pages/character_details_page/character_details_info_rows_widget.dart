@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/data/dto/character.dart';
-import 'package:rick_and_morty_app/data/dto/episode.dart';
+import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
+import 'package:rick_and_morty_app/domain/entities/episode_entity.dart';
 
 class CharacterDetailsInfoRowsWidget extends StatelessWidget {
-  final CharacterDTO? character;
-  final EpisodeDTO? firstEpisode;
+  final CharacterEntity? character;
+  final EpisodeEntity? firstEpisode;
 
   const CharacterDetailsInfoRowsWidget({
     super.key,
@@ -18,8 +18,8 @@ class CharacterDetailsInfoRowsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildInfoRow('Gender:', character?.gender ?? ''),
-        _buildInfoRow('Origin:', character?.origin.name ?? ''),
-        _buildInfoRow('Last known location:', character?.location.name ?? ''),
+        _buildInfoRow('Origin:', character?.origin?.name ?? ''),
+        _buildInfoRow('Last known location:', character?.location?.name ?? ''),
         _buildInfoRow('First seen in:', firstEpisode?.name ?? ''),
         _buildInfoRow('Type:', character?.type?.isEmpty ?? true ? 'Unknown' : character!.type!),
         _buildInfoRow('Created at:', character?.created ?? ''),

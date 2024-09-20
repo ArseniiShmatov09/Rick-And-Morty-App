@@ -14,8 +14,8 @@ class CharacterDetailsLoading extends CharacterDetailsState {
 class CharacterDetailsLoaded extends CharacterDetailsState {
   const CharacterDetailsLoaded(this.character, this.firstEpisode);
 
-  final CharacterDTO character;
-  final EpisodeDTO firstEpisode;
+  final CharacterEntity character;
+  final EpisodeEntity firstEpisode;
 
   @override
   List<Object?> get props => [character, firstEpisode];

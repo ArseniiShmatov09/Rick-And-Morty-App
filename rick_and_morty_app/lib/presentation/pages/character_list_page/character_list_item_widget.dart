@@ -1,11 +1,11 @@
 // ignore_for_file: use_super_parameters
 
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
-import '../../../data/dto/character.dart';
 
 class CharacterListItemWidget extends StatelessWidget {
-  final CharacterDTO character;
+  final CharacterEntity character;
   final bool isOffline;
   final VoidCallback onTap;
 
@@ -33,7 +33,7 @@ class CharacterListItemWidget extends StatelessWidget {
               children: [
                 isOffline
                     ? Image.asset('assets/images/no_image.jpeg')
-                    : Image.network(character.image),
+                    : Image.network(character.image ?? ''),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -42,7 +42,7 @@ class CharacterListItemWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          character.name,
+                          character.name?? '',
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,

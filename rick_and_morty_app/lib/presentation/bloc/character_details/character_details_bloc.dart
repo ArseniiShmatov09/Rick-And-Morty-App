@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_episode_repository.dart';
-import '../../../data/dto/character.dart';
-import '../../../data/dto/episode.dart';
-import '../../../domain/interfaces/abstract_character_repository.dart';
+import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
+import 'package:rick_and_morty_app/domain/entities/episode_entity.dart';
+import 'package:rick_and_morty_app/domain/repositories/character_repository.dart';
+import 'package:rick_and_morty_app/domain/repositories/episode_repository.dart';
 
 part 'character_details_state.dart';
 part 'character_details_event.dart';
@@ -15,11 +15,11 @@ class CharacterDetailsBloc
        on<LoadCharacterDetails>(_load);
   }
 
-  final AbstractEpisodeRepository
-    _episodeRepository = GetIt.I<AbstractEpisodeRepository>();
+  final EpisodeRepository
+    _episodeRepository = GetIt.I<EpisodeRepository>();
 
-  final AbstractCharacterRepository
-    _characterRepository = GetIt.I<AbstractCharacterRepository>();
+  final CharacterRepository
+    _characterRepository = GetIt.I<CharacterRepository>();
 
   Future<void> _load(
     LoadCharacterDetails event,
@@ -34,7 +34,7 @@ class CharacterDetailsBloc
       final character =
         await _characterRepository.getCharacter(event.characterId);
 
-      final firstEpisodeUrl = character.episode.first;
+      final firstEpisodeUrl = character.episode!.first;
       final episodeId = firstEpisodeUrl.split('/').last;
       final firstEpisode = await _episodeRepository.getEpisode(int.parse(episodeId));
 

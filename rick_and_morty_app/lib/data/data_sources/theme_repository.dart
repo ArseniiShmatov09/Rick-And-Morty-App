@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../domain/interfaces/abstract_theme_repository.dart';
+import 'interfaces/abstract_theme_repository.dart';
 
 class ThemeRepository implements AbstractThemeRepository{
 

@@ -1,17 +1,17 @@
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
 import '../dto/episode.dart';
-import '../../domain/interfaces/abstract_episode_repository.dart';
+import 'interfaces/abstract_episode_data_source.dart';
 
-class EpisodeRepository implements AbstractEpisodeRepository{
+class EpisodeDataSource implements AbstractEpisodeDataSource{
 
-  EpisodeRepository(
+  EpisodeDataSource(
     this.apiClient,
   );
 
   final ApiClient apiClient;
   
   @override
-  Future<EpisodeDTO> getEpisode(int episodeId) async {
+  Future<EpisodeDTO> loadEpisode(int episodeId) async {
 
     try {
       final episode = await _fetchEpisode(episodeId);

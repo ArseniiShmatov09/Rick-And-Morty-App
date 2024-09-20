@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/data/dto/character.dart';
+import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class HeaderDetailsInfoWidget extends StatelessWidget {
-  final CharacterDTO? character;
+  final CharacterEntity? character;
   final NetworkConnection networkConnection;
 
   const HeaderDetailsInfoWidget({

@@ -1,17 +1,17 @@
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
+import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_character_data_source.dart';
 import '../../data/dto/character.dart';
-import '../../domain/interfaces/abstract_character_repository.dart';
 
-class CharacterRepository implements AbstractCharacterRepository {
+class CharacterDataSource implements AbstractCharacterDataSource {
 
-  CharacterRepository(
+  CharacterDataSource(
     this.apiClient,
   );
 
   final ApiClient apiClient;
 
   @override
-  Future<CharacterDTO> getCharacter(int characterId) async {
+  Future<CharacterDTO> loadCharacter(int characterId) async {
     try {
       final character = await _fetchCharacter(characterId);
       apiClient.charactersBox.put(characterId, character);

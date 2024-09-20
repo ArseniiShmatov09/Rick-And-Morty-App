@@ -1,19 +1,19 @@
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
 import '../dto/api_info.dart';
 import '../dto/character.dart';
 import '../dto/characters_response.dart';
+import 'interfaces/abstract_characters_list_data_source.dart';
 
-class CharactersListRepository implements AbstractCharactersListRepository {
+class CharactersListDataSource implements AbstractCharactersListDataSource {
 
-  CharactersListRepository(
+  CharactersListDataSource(
     this.apiClient,
   );
 
   final ApiClient apiClient;
 
   @override
-  Future<CharactersResponseDTO> getAllCharacters(int page) async {
+  Future<CharactersResponseDTO> loadAllCharacters(int page) async {
     final ApiInfoDTO apiInfo = ApiInfoDTO(count: 20, pages: 1);
     List<CharacterDTO> charactersList = [];
     var charactersResponse = CharactersResponseDTO(
@@ -36,7 +36,7 @@ class CharactersListRepository implements AbstractCharactersListRepository {
   }
 
   @override
-  Future<CharactersResponseDTO> getFilteredCharacters(
+  Future<CharactersResponseDTO> loadFilteredCharacters(
       String? status,
       String? species,
       int page,

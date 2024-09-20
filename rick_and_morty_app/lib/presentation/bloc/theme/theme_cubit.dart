@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:ui';
 import 'package:rick_and_morty_app/presentation/bloc/theme/theme_state.dart';
 
-import '../../../domain/interfaces/abstract_theme_repository.dart';
+import '../../../data/data_sources/interfaces/abstract_theme_repository.dart';
 
 class ThemeCubit extends Cubit<ThemeState>{
   ThemeCubit({

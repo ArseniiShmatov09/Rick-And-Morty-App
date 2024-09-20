@@ -5,7 +5,7 @@ import 'package:rick_and_morty_app/presentation/bloc/theme/theme_cubit.dart';
 import 'package:rick_and_morty_app/presentation/bloc/theme/theme_state.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
 import 'package:rick_and_morty_app/presentation/theme/theme.dart';
-import 'domain/interfaces/abstract_theme_repository.dart';
+import 'data/data_sources/interfaces/abstract_theme_repository.dart';
 import 'domain/utils/app_initializer.dart';
 import 'domain/utils/network_connection.dart';
 

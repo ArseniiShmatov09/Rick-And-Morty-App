@@ -1,19 +1,22 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/api_client/api_client.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_character_repository.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_characters_list_repository.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_episode_repository.dart';
-import 'package:rick_and_morty_app/domain/interfaces/abstract_theme_repository.dart';
-import 'package:rick_and_morty_app/data/repositories/characters_list_repository.dart';
-import 'package:rick_and_morty_app/data/repositories/episode_repository.dart';
-import 'package:rick_and_morty_app/data/repositories/theme_repository.dart';
+import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_theme_repository.dart';
+import 'package:rick_and_morty_app/data/data_sources/characters_list_data_source.dart';
+import 'package:rick_and_morty_app/data/data_sources/episode_data_source.dart';
+import 'package:rick_and_morty_app/data/data_sources/theme_repository.dart';
+import 'package:rick_and_morty_app/data/repositories/character_repository_impl.dart';
+import 'package:rick_and_morty_app/data/repositories/characters_list_repository_impl.dart';
+import 'package:rick_and_morty_app/data/repositories/episode_repository_impl.dart';
+import 'package:rick_and_morty_app/domain/repositories/characters_list_repository.dart';
+import 'package:rick_and_morty_app/domain/repositories/episode_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rick_and_morty_app/data/dto/character.dart';
 import 'package:rick_and_morty_app/data/dto/episode.dart';
 import '../../data/dto/api_info.dart';
 import '../../data/dto/characters_response.dart';
-import '../../data/repositories/character_repository.dart';
+import '../../data/data_sources/character_data_source.dart';
+import '../repositories/character_repository.dart';
 
 Future<void> initializeHive() async {
   await Hive.initFlutter();
@@ -30,30 +33,36 @@ void initializeGetIt(
   Box<EpisodeDTO> episodesBox,
   SharedPreferences prefs,
   ) {
-  GetIt.I.registerLazySingleton<AbstractCharactersListRepository>(
-        () => CharactersListRepository(
-        ApiClient(
-            charactersBox,
-            episodesBox
-        )
+  GetIt.I.registerLazySingleton<CharactersListRepository>(
+    () => CharactersListRepositoryImpl(
+      abstractCharactersListDataSource: CharactersListDataSource(
+          ApiClient(
+              charactersBox,
+              episodesBox
+          ),
+      ),
     ),
   );
 
-  GetIt.I.registerLazySingleton<AbstractCharacterRepository>(
-        () => CharacterRepository(
+  GetIt.I.registerLazySingleton<CharacterRepository>(
+    () => CharacterRepositoryImpl(
+      abstractCharacterDataSource: CharacterDataSource(
         ApiClient(
             charactersBox,
             episodesBox
-        )
+        ),
+      ),
     ),
   );
 
-  GetIt.I.registerLazySingleton<AbstractEpisodeRepository>(
-        () => EpisodeRepository(
-        ApiClient(
-            charactersBox,
-            episodesBox
-        )
+  GetIt.I.registerLazySingleton<EpisodeRepository>(
+    () => EpisodeRepositoryImpl(
+      abstractEpisodeDataSource: EpisodeDataSource(
+          ApiClient(
+              charactersBox,
+              episodesBox
+          )
+      )
     ),
   );
 
