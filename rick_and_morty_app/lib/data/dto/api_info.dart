@@ -6,7 +6,7 @@ part 'api_info.g.dart';
 
 @HiveType(typeId: 4)
 @JsonSerializable()
-class ApiInfoDTO extends  ApiInfoEntity{
+class ApiInfoDTO extends ApiInfoEntity{
 
   @override
   @HiveField(0)

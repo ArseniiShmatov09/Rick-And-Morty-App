@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_theme_repository.dart';
 import 'package:rick_and_morty_app/data/data_sources/characters_list_data_source.dart';
 import 'package:rick_and_morty_app/data/data_sources/episode_data_source.dart';
-import 'package:rick_and_morty_app/data/data_sources/theme_repository.dart';
+import 'package:rick_and_morty_app/data/repositories/theme_repository.dart';
 import 'package:rick_and_morty_app/data/repositories/character_repository_impl.dart';
 import 'package:rick_and_morty_app/data/repositories/characters_list_repository_impl.dart';
 import 'package:rick_and_morty_app/data/repositories/episode_repository_impl.dart';

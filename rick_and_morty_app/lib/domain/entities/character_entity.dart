@@ -1,16 +1,16 @@
 class CharacterEntity {
-  final int? id;
-  final String? name;
-  final String? status;
-  final String? species;
+  final int id;
+  final String name;
+  final String status;
+  final String species;
   final String? type;
-  final String? gender;
-  final LocationInfoEntity? origin;
-  final LocationInfoEntity? location;
-  final List<String>? episode;
-  final String? url;
-  final String? image;
-  final String? created;
+  final String gender;
+  final LocationInfoEntity origin;
+  final LocationInfoEntity location;
+  final List<String> episode;
+  final String url;
+  final String image;
+  final String created;
 
   CharacterEntity({
     required this.id,

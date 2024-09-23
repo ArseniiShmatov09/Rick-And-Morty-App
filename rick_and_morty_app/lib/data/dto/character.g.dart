@@ -23,8 +23,8 @@ class CharacterAdapter extends TypeAdapter<CharacterDTO> {
       species: fields[4] as String,
       type: fields[0] as String?,
       gender: fields[5] as String,
-      origin: fields[6] as LocationInfo,
-      location: fields[7] as LocationInfo,
+      origin: fields[6] as LocationInfoDTO,
+      location: fields[7] as LocationInfoDTO,
       episode: (fields[8] as List).cast<String>(),
       url: fields[9] as String,
       image: fields[10] as String,
@@ -73,24 +73,24 @@ class CharacterAdapter extends TypeAdapter<CharacterDTO> {
           typeId == other.typeId;
 }
 
-class LocationInfoAdapter extends TypeAdapter<LocationInfo> {
+class LocationInfoAdapter extends TypeAdapter<LocationInfoDTO> {
   @override
   final int typeId = 5;
 
   @override
-  LocationInfo read(BinaryReader reader) {
+  LocationInfoDTO read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LocationInfo(
+    return LocationInfoDTO(
       name: fields[1] as String,
       url: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, LocationInfo obj) {
+  void write(BinaryWriter writer, LocationInfoDTO obj) {
     writer
       ..writeByte(2)
       ..writeByte(1)
@@ -121,8 +121,8 @@ CharacterDTO _$CharacterFromJson(Map<String, dynamic> json) => CharacterDTO(
       species: json['species'] as String,
       type: json['type'] as String?,
       gender: json['gender'] as String,
-      origin: LocationInfo.fromJson(json['origin'] as Map<String, dynamic>),
-      location: LocationInfo.fromJson(json['location'] as Map<String, dynamic>),
+      origin: LocationInfoDTO.fromJson(json['origin'] as Map<String, dynamic>),
+      location: LocationInfoDTO.fromJson(json['location'] as Map<String, dynamic>),
       episode:
           (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
@@ -145,12 +145,12 @@ Map<String, dynamic> _$CharacterToJson(CharacterDTO instance) => <String, dynami
       'created': instance.created,
     };
 
-LocationInfo _$LocationInfoFromJson(Map<String, dynamic> json) => LocationInfo(
+LocationInfoDTO _$LocationInfoFromJson(Map<String, dynamic> json) => LocationInfoDTO(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$LocationInfoToJson(LocationInfo instance) =>
+Map<String, dynamic> _$LocationInfoToJson(LocationInfoDTO instance) =>
     <String, dynamic>{
       'name': instance.name,
       'url': instance.url,
