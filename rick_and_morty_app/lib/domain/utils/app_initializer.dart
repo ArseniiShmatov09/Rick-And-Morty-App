@@ -8,15 +8,16 @@ import 'package:rick_and_morty_app/data/data_sources/theme_repository.dart';
 import 'package:rick_and_morty_app/data/repositories/character_repository_impl.dart';
 import 'package:rick_and_morty_app/data/repositories/characters_list_repository_impl.dart';
 import 'package:rick_and_morty_app/data/repositories/episode_repository_impl.dart';
-import 'package:rick_and_morty_app/domain/repositories/characters_list_repository.dart';
-import 'package:rick_and_morty_app/domain/repositories/episode_repository.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_all_characters.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_character.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_episode.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_filtered_characters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rick_and_morty_app/data/dto/character.dart';
 import 'package:rick_and_morty_app/data/dto/episode.dart';
 import '../../data/dto/api_info.dart';
 import '../../data/dto/characters_response.dart';
 import '../../data/data_sources/character_data_source.dart';
-import '../repositories/character_repository.dart';
 
 Future<void> initializeHive() async {
   await Hive.initFlutter();
@@ -34,30 +35,48 @@ void initializeGetIt(
   Dio dio,
   SharedPreferences prefs,
   ) {
-  GetIt.I.registerLazySingleton<CharactersListRepository>(
-    () => CharactersListRepositoryImpl(
-      abstractCharactersListDataSource: CharactersListDataSource(
-        dio,
-        charactersBox,
+
+  GetIt.I.registerLazySingleton<GetAllCharacters>(
+      () => GetAllCharacters(
+        repository: CharactersListRepositoryImpl(
+        abstractCharactersListDataSource: CharactersListDataSource(
+          dio,
+          charactersBox,
+        ),
       ),
     ),
   );
 
-  GetIt.I.registerLazySingleton<CharacterRepository>(
-    () => CharacterRepositoryImpl(
-      abstractCharacterDataSource: CharacterDataSource(
-        dio,
-        charactersBox,
+  GetIt.I.registerLazySingleton<GetFilteredCharacters>(
+    () => GetFilteredCharacters(
+      repository: CharactersListRepositoryImpl(
+        abstractCharactersListDataSource: CharactersListDataSource(
+          dio,
+          charactersBox,
+        ),
       ),
     ),
   );
 
-  GetIt.I.registerLazySingleton<EpisodeRepository>(
-    () => EpisodeRepositoryImpl(
-      abstractEpisodeDataSource: EpisodeDataSource(
-        dio,
-        episodesBox,
-      )
+  GetIt.I.registerLazySingleton<GetCharacter>(
+      () => GetCharacter(
+        characterRepository: CharacterRepositoryImpl(
+        abstractCharacterDataSource: CharacterDataSource(
+          dio,
+          charactersBox,
+        ),
+      ),
+    )
+  );
+
+  GetIt.I.registerLazySingleton<GetEpisode>(
+    () => GetEpisode(
+      episodeRepository: EpisodeRepositoryImpl(
+        abstractEpisodeDataSource: EpisodeDataSource(
+          dio,
+          episodesBox,
+        )
+      ),
     ),
   );
 

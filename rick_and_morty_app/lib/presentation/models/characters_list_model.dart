@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
 import 'package:rick_and_morty_app/domain/entities/character_response_entity.dart';
-import 'package:rick_and_morty_app/domain/repositories/characters_list_repository.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_all_characters.dart';
+import 'package:rick_and_morty_app/domain/usecases/get_filtered_characters.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
-import '../../data/data_sources/interfaces/abstract_characters_list_data_source.dart';
-import '../../data/dto/character.dart';
-import '../../data/dto/characters_response.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
-  final CharactersListRepository
-    _charactersListRepository = GetIt.I<CharactersListRepository>();
-
   final _characters = <CharacterEntity>[];
-
+  final GetAllCharacters _getAllCharacters = GetIt.I<GetAllCharacters>();
+  final GetFilteredCharacters _getFilteredCharacters = GetIt.I<GetFilteredCharacters>();
   int _currentPage = 1;
   int _pageCount = 1;
 
@@ -42,9 +38,9 @@ class CharactersListModel extends ChangeNotifier {
       _species = null;
     }
     if (_status == null && _species == null) {
-      return await _charactersListRepository.getAllCharacters(nextPage);
+      return await _getAllCharacters(nextPage);
     } else {
-      return await _charactersListRepository.getFilteredCharacters(_status, _species, nextPage);
+      return await _getFilteredCharacters(_status, _species, nextPage);
     }
   }
 
