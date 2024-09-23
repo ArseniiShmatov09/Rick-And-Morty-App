@@ -31,7 +31,7 @@ class CharacterDetailsBloc
       final character =
         await _getCharacter(event.characterId);
 
-      final firstEpisodeUrl = character.episode!.first;
+      final firstEpisodeUrl = character.episode.first;
       final episodeId = firstEpisodeUrl.split('/').last;
       final firstEpisode = await _getEpisode(int.parse(episodeId));
 

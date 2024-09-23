@@ -18,8 +18,8 @@ class CharacterDetailsInfoRowsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildInfoRow('Gender:', character?.gender ?? ''),
-        _buildInfoRow('Origin:', character?.origin?.name ?? ''),
-        _buildInfoRow('Last known location:', character?.location?.name ?? ''),
+        _buildInfoRow('Origin:', character?.origin.name ?? ''),
+        _buildInfoRow('Last known location:', character?.location.name ?? ''),
         _buildInfoRow('First seen in:', firstEpisode?.name ?? ''),
         _buildInfoRow('Type:', character?.type?.isEmpty ?? true ? 'Unknown' : character!.type!),
         _buildInfoRow('Created at:', character?.created ?? ''),

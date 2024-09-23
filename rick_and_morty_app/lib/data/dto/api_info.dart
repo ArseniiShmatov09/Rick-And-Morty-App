@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/domain/entities/api_info_entity.dart';
@@ -11,12 +13,15 @@ class ApiInfoDTO extends ApiInfoEntity{
   @override
   @HiveField(0)
   final int count;
+
   @override
   @HiveField(1)
   final int pages;
+
   @override
   @HiveField(2)
   final String? next;
+
   @override
   @HiveField(3)
   final String? prev;

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
 
 part 'character.g.dart';
 
@@ -8,41 +7,41 @@ part 'character.g.dart';
 @JsonSerializable(explicitToJson: true)
 class CharacterDTO  {
 
-  @override
+  
   @HiveField(1)
   final int id;
-  @override
+
   @HiveField(2)
   final String name;
-  @override
+
   @HiveField(3)
   final String status;
-  @override
+
   @HiveField(4)
   final String species;
-  @override
+
   @HiveField(0)
   final String? type;
-  @override
+
   @HiveField(5)
   final String gender;
-  @override
+
   @HiveField(6)
   final LocationInfoDTO origin;
-  @override
+
   @HiveField(7)
   final LocationInfoDTO location;
-  @override
+
   @HiveField(8)
   final List<String> episode;
-  @override
+
   @HiveField(9)
   final String url;
-  @override
+
   @HiveField(10)
   final String image;
   @HiveField(11)
-  @override
+
   final String created;
 
   CharacterDTO({
@@ -69,10 +68,10 @@ class CharacterDTO  {
 @HiveType(typeId: 5)
 @JsonSerializable()
 class LocationInfoDTO{
-  @override
+
   @HiveField(1)
    final String? name;
-  @override
+
   @HiveField(2)
    final String? url;
 

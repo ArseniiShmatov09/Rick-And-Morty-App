@@ -3,7 +3,6 @@ part of 'character_details_bloc.dart';
 class CharacterDetailsState  {
   const CharacterDetailsState();
 
-  @override
   List<Object?> get props => [];
 }
 

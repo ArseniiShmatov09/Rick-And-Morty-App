@@ -9,11 +9,9 @@ part 'characters_response.g.dart';
 @JsonSerializable(explicitToJson: true)
 class CharactersResponseDTO {
 
-  @override
   @HiveField(0)
   final ApiInfoDTO info;
 
-  @override
   @HiveField(1)
   @JsonKey(name: 'results')
   late List<CharacterDTO> characters;

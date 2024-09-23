@@ -33,7 +33,7 @@ class CharacterListItemWidget extends StatelessWidget {
               children: [
                 isOffline
                     ? Image.asset('assets/images/no_image.jpeg')
-                    : Image.network(character.image ?? ''),
+                    : Image.network(character.image),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -42,7 +42,7 @@ class CharacterListItemWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          character.name?? '',
+                          character.name,
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
