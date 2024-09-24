@@ -5,8 +5,7 @@ part 'character.g.dart';
 
 @HiveType(typeId: 2)
 @JsonSerializable(explicitToJson: true)
-class CharacterDTO  {
-
+class CharacterEntity {
   
   @HiveField(1)
   final int id;
@@ -27,10 +26,10 @@ class CharacterDTO  {
   final String gender;
 
   @HiveField(6)
-  final LocationInfoDTO origin;
+  final LocationInfoEntity origin;
 
   @HiveField(7)
-  final LocationInfoDTO location;
+  final LocationInfoEntity location;
 
   @HiveField(8)
   final List<String> episode;
@@ -44,7 +43,7 @@ class CharacterDTO  {
 
   final String created;
 
-  CharacterDTO({
+  CharacterEntity({
     required this.id,
     required this.name,
     required this.status,
@@ -59,7 +58,7 @@ class CharacterDTO  {
     required this.url,
   });
 
-  factory CharacterDTO.fromJson(Map<String, dynamic> json) =>
+  factory CharacterEntity.fromJson(Map<String, dynamic> json) =>
     _$CharacterFromJson(json);
   
   Map<String, dynamic> toJson() => _$CharacterToJson(this);
@@ -67,7 +66,7 @@ class CharacterDTO  {
 
 @HiveType(typeId: 5)
 @JsonSerializable()
-class LocationInfoDTO{
+class LocationInfoEntity{
 
   @HiveField(1)
    final String? name;
@@ -75,12 +74,12 @@ class LocationInfoDTO{
   @HiveField(2)
    final String? url;
 
-  LocationInfoDTO({
+  LocationInfoEntity({
     required this.name,
     required this.url
   });
 
-  factory LocationInfoDTO.fromJson(Map<String, dynamic> json) =>
+  factory LocationInfoEntity.fromJson(Map<String, dynamic> json) =>
     _$LocationInfoFromJson(json);
   
   Map<String, dynamic> toJson() => _$LocationInfoToJson(this);

@@ -1,5 +1,5 @@
-import '../../dto/character.dart';
+import '../../entities/character.dart';
 
 abstract class AbstractCharacterDataSource {
-  Future<CharacterDTO> loadCharacter(int characterId);
+  Future<CharacterEntity> loadCharacter(int characterId);
 }

@@ -1,11 +1,11 @@
 // ignore_for_file: use_super_parameters
 
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
+import 'package:rick_and_morty_app/domain/models/character_model.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class CharacterListItemWidget extends StatelessWidget {
-  final CharacterEntity character;
+  final CharacterModel character;
   final bool isOffline;
   final VoidCallback onTap;
 

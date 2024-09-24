@@ -1,5 +1,5 @@
-import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
+import 'package:rick_and_morty_app/domain/models/character_model.dart';
 
 abstract class CharacterRepository {
-  Future<CharacterEntity> getCharacter(int characterId);
+  Future<CharacterModel> getCharacter(int characterId);
 }

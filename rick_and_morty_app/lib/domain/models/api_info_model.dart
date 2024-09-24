@@ -1,11 +1,11 @@
-class ApiInfoEntity {
+class ApiInfoModel {
 
   final int count;
   final int pages;
   final String? next;
   final String? prev;
 
-  ApiInfoEntity({
+  ApiInfoModel({
     required this.count,
     required this.pages,
     this.next = '',

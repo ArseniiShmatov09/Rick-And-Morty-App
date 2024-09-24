@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/adapters.dart';
-import '../dto/api_info.dart';
-import '../dto/character.dart';
-import '../dto/characters_response.dart';
+import '../entities/api_info.dart';
+import '../entities/character.dart';
+import '../entities/characters_response.dart';
 import 'interfaces/abstract_characters_list_data_source.dart';
 
 class CharactersListDataSource implements AbstractCharactersListDataSource {
@@ -13,13 +13,13 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
   );
 
   final Dio dio;
-  final Box<CharacterDTO> charactersBox;
+  final Box<CharacterEntity> charactersBox;
 
   @override
-  Future<CharactersResponseDTO> loadAllCharacters(int page) async {
-    final ApiInfoDTO apiInfo = ApiInfoDTO(count: 20, pages: 1);
-    List<CharacterDTO> charactersList = [];
-    var charactersResponse = CharactersResponseDTO(
+  Future<CharactersResponseEntity> loadAllCharacters(int page) async {
+    final ApiInfoEntity apiInfo = ApiInfoEntity(count: 20, pages: 1);
+    List<CharacterEntity> charactersList = [];
+    var charactersResponse = CharactersResponseEntity(
       info: apiInfo,
       characters: charactersList,
     );
@@ -39,7 +39,7 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
   }
 
   @override
-  Future<CharactersResponseDTO> loadFilteredCharacters(
+  Future<CharactersResponseEntity> loadFilteredCharacters(
       String? status,
       String? species,
       int page,
@@ -54,11 +54,11 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
       },
     );
     final data = response.data as Map<String, dynamic>;
-    final charactersList = CharactersResponseDTO.fromJson(data);
+    final charactersList = CharactersResponseEntity.fromJson(data);
     return charactersList;
   }
 
-  Future<CharactersResponseDTO> _fetchAllCharacters(int page) async {
+  Future<CharactersResponseEntity> _fetchAllCharacters(int page) async {
     final Response<Map<String, dynamic>> response = await dio.get(
       'https://rickandmortyapi.com/api/character',
       queryParameters: <String, dynamic>{
@@ -66,7 +66,7 @@ class CharactersListDataSource implements AbstractCharactersListDataSource {
       },
     );
     final data = response.data as Map<String, dynamic>;
-    final charactersList = CharactersResponseDTO.fromJson(data);
+    final charactersList = CharactersResponseEntity.fromJson(data);
     return charactersList;
   }
 }

@@ -6,25 +6,25 @@ part of 'character.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CharacterAdapter extends TypeAdapter<CharacterDTO> {
+class CharacterAdapter extends TypeAdapter<CharacterEntity> {
   @override
   final int typeId = 2;
 
   @override
-  CharacterDTO read(BinaryReader reader) {
+  CharacterEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return CharacterDTO(
+    return CharacterEntity(
       id: fields[1] as int,
       name: fields[2] as String,
       status: fields[3] as String,
       species: fields[4] as String,
       type: fields[0] as String?,
       gender: fields[5] as String,
-      origin: fields[6] as LocationInfoDTO,
-      location: fields[7] as LocationInfoDTO,
+      origin: fields[6] as LocationInfoEntity,
+      location: fields[7] as LocationInfoEntity,
       episode: (fields[8] as List).cast<String>(),
       url: fields[9] as String,
       image: fields[10] as String,
@@ -33,7 +33,7 @@ class CharacterAdapter extends TypeAdapter<CharacterDTO> {
   }
 
   @override
-  void write(BinaryWriter writer, CharacterDTO obj) {
+  void write(BinaryWriter writer, CharacterEntity obj) {
     writer
       ..writeByte(12)
       ..writeByte(1)
@@ -73,24 +73,24 @@ class CharacterAdapter extends TypeAdapter<CharacterDTO> {
           typeId == other.typeId;
 }
 
-class LocationInfoAdapter extends TypeAdapter<LocationInfoDTO> {
+class LocationInfoAdapter extends TypeAdapter<LocationInfoEntity> {
   @override
   final int typeId = 5;
 
   @override
-  LocationInfoDTO read(BinaryReader reader) {
+  LocationInfoEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return LocationInfoDTO(
+    return LocationInfoEntity(
       name: fields[1] as String,
       url: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, LocationInfoDTO obj) {
+  void write(BinaryWriter writer, LocationInfoEntity obj) {
     writer
       ..writeByte(2)
       ..writeByte(1)
@@ -114,15 +114,15 @@ class LocationInfoAdapter extends TypeAdapter<LocationInfoDTO> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-CharacterDTO _$CharacterFromJson(Map<String, dynamic> json) => CharacterDTO(
+CharacterEntity _$CharacterFromJson(Map<String, dynamic> json) => CharacterEntity(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       status: json['status'] as String,
       species: json['species'] as String,
       type: json['type'] as String?,
       gender: json['gender'] as String,
-      origin: LocationInfoDTO.fromJson(json['origin'] as Map<String, dynamic>),
-      location: LocationInfoDTO.fromJson(json['location'] as Map<String, dynamic>),
+      origin: LocationInfoEntity.fromJson(json['origin'] as Map<String, dynamic>),
+      location: LocationInfoEntity.fromJson(json['location'] as Map<String, dynamic>),
       episode:
           (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
@@ -130,7 +130,7 @@ CharacterDTO _$CharacterFromJson(Map<String, dynamic> json) => CharacterDTO(
       created: json['created'] as String,
     );
 
-Map<String, dynamic> _$CharacterToJson(CharacterDTO instance) => <String, dynamic>{
+Map<String, dynamic> _$CharacterToJson(CharacterEntity instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,
@@ -145,12 +145,12 @@ Map<String, dynamic> _$CharacterToJson(CharacterDTO instance) => <String, dynami
       'created': instance.created,
     };
 
-LocationInfoDTO _$LocationInfoFromJson(Map<String, dynamic> json) => LocationInfoDTO(
+LocationInfoEntity _$LocationInfoFromJson(Map<String, dynamic> json) => LocationInfoEntity(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$LocationInfoToJson(LocationInfoDTO instance) =>
+Map<String, dynamic> _$LocationInfoToJson(LocationInfoEntity instance) =>
     <String, dynamic>{
       'name': instance.name,
       'url': instance.url,

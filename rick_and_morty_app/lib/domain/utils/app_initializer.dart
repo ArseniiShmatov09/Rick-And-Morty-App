@@ -13,10 +13,10 @@ import 'package:rick_and_morty_app/domain/usecases/get_character.dart';
 import 'package:rick_and_morty_app/domain/usecases/get_episode.dart';
 import 'package:rick_and_morty_app/domain/usecases/get_filtered_characters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rick_and_morty_app/data/dto/character.dart';
-import 'package:rick_and_morty_app/data/dto/episode.dart';
-import '../../data/dto/api_info.dart';
-import '../../data/dto/characters_response.dart';
+import 'package:rick_and_morty_app/data/entities/character.dart';
+import 'package:rick_and_morty_app/data/entities/episode.dart';
+import '../../data/entities/api_info.dart';
+import '../../data/entities/characters_response.dart';
 import '../../data/data_sources/character_data_source.dart';
 
 Future<void> initializeHive() async {
@@ -30,8 +30,8 @@ Future<void> initializeHive() async {
 }
 
 void initializeGetIt(
-  Box<CharacterDTO> charactersBox,
-  Box<EpisodeDTO> episodesBox,
+  Box<CharacterEntity> charactersBox,
+  Box<EpisodeEntity> episodesBox,
   Dio dio,
   SharedPreferences prefs,
   ) {
@@ -93,8 +93,8 @@ Future<void> initializeApp() async {
   const String charactersBoxName = 'characters_box';
   const String episodesBoxName = 'episodes_box';
 
-  final charactersBox = await Hive.openBox<CharacterDTO>(charactersBoxName);
-  final episodesBox = await Hive.openBox<EpisodeDTO>(episodesBoxName);
+  final charactersBox = await Hive.openBox<CharacterEntity>(charactersBoxName);
+  final episodesBox = await Hive.openBox<EpisodeEntity>(episodesBoxName);
   final dio = Dio();
 
   initializeGetIt(charactersBox, episodesBox, dio, prefs);

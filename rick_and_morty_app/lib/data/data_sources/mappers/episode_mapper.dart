@@ -1,18 +1,8 @@
-import '../../../domain/entities/episode_entity.dart';
-import '../../dto/episode.dart';
+import '../../../domain/models/episode_model.dart';
+import '../../entities/episode.dart';
 
 class EpisodeMapper  {
-  EpisodeEntity toEntity (EpisodeDTO dto) => EpisodeEntity (
-    id: dto.id,
-    name: dto.name,
-    airDate: dto.airDate,
-    episode: dto.episode,
-    characters: dto.characters,
-    url: dto.url,
-    created: dto.created,
-  );
-
-  EpisodeDTO fromEntity (EpisodeEntity entity) => EpisodeDTO (
+  EpisodeModel toEntity (EpisodeEntity entity) => EpisodeModel (
     id: entity.id,
     name: entity.name,
     airDate: entity.airDate,
@@ -20,5 +10,15 @@ class EpisodeMapper  {
     characters: entity.characters,
     url: entity.url,
     created: entity.created,
+  );
+
+  EpisodeEntity fromEntity (EpisodeModel model) => EpisodeEntity (
+    id: model.id,
+    name: model.name,
+    airDate: model.airDate,
+    episode: model.episode,
+    characters: model.characters,
+    url: model.url,
+    created: model.created,
   );
 }

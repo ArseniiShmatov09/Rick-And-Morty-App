@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rick_and_morty_app/domain/entities/character_entity.dart';
-import 'package:rick_and_morty_app/domain/entities/character_response_entity.dart';
+import 'package:rick_and_morty_app/domain/models/character_model.dart';
+import 'package:rick_and_morty_app/domain/models/character_response_model.dart';
 import 'package:rick_and_morty_app/domain/usecases/get_all_characters.dart';
 import 'package:rick_and_morty_app/domain/usecases/get_filtered_characters.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
 
 class CharactersListModel extends ChangeNotifier {
 
-  final _characters = <CharacterEntity>[];
+  final _characters = <CharacterModel>[];
   final GetAllCharacters _getAllCharacters = GetIt.I<GetAllCharacters>();
   final GetFilteredCharacters _getFilteredCharacters = GetIt.I<GetFilteredCharacters>();
   int _currentPage = 1;
@@ -20,7 +20,7 @@ class CharactersListModel extends ChangeNotifier {
   bool _isLoadInProgress = false;
   bool hasMoreData = true;
 
-  List<CharacterEntity> get characters => List.unmodifiable(_characters);
+  List<CharacterModel> get characters => List.unmodifiable(_characters);
 
   Future<void> setup() async {
     _currentPage = 1;
@@ -30,7 +30,7 @@ class CharactersListModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<CharactersResponseEntity> _loadCharacters(int nextPage) async {
+  Future<CharactersResponseModel> _loadCharacters(int nextPage) async {
     if (_status == 'All') {
       _status = null;
     }

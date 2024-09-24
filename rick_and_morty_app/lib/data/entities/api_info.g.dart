@@ -6,17 +6,17 @@ part of 'api_info.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ApiInfoAdapter extends TypeAdapter<ApiInfoDTO> {
+class ApiInfoAdapter extends TypeAdapter<ApiInfoEntity> {
   @override
   final int typeId = 4;
 
   @override
-  ApiInfoDTO read(BinaryReader reader) {
+  ApiInfoEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ApiInfoDTO(
+    return ApiInfoEntity(
       count: fields[0] as int,
       pages: fields[1] as int,
       next: fields[2] as String?,
@@ -25,7 +25,7 @@ class ApiInfoAdapter extends TypeAdapter<ApiInfoDTO> {
   }
 
   @override
-  void write(BinaryWriter writer, ApiInfoDTO obj) {
+  void write(BinaryWriter writer, ApiInfoEntity obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -53,14 +53,14 @@ class ApiInfoAdapter extends TypeAdapter<ApiInfoDTO> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-ApiInfoDTO _$ApiInfoFromJson(Map<String, dynamic> json) => ApiInfoDTO(
+ApiInfoEntity _$ApiInfoFromJson(Map<String, dynamic> json) => ApiInfoEntity(
       count: (json['count'] as num).toInt(),
       pages: (json['pages'] as num).toInt(),
       next: json['next'] as String? ?? '',
       prev: json['prev'] as String? ?? '',
     );
 
-Map<String, dynamic> _$ApiInfoToJson(ApiInfoDTO instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiInfoToJson(ApiInfoEntity instance) => <String, dynamic>{
       'count': instance.count,
       'pages': instance.pages,
       'next': instance.next,

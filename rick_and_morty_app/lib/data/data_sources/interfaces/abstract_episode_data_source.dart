@@ -1,5 +1,5 @@
-import '../../dto/episode.dart';
+import '../../entities/episode.dart';
 
 abstract class AbstractEpisodeDataSource {
-  Future<EpisodeDTO> loadEpisode(int episodeId);
+  Future<EpisodeEntity> loadEpisode(int episodeId);
 }

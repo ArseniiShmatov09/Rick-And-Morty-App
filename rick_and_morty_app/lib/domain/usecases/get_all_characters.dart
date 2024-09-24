@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_app/domain/entities/character_response_entity.dart';
+import 'package:rick_and_morty_app/domain/models/character_response_model.dart';
 
 import '../repositories/characters_list_repository.dart';
 
@@ -9,7 +9,7 @@ class GetAllCharacters {
 
   final CharactersListRepository _repository;
 
-  Future<CharactersResponseEntity> call(int page) async {
+  Future<CharactersResponseModel> call(int page) async {
     final list = await _repository.getAllCharacters(page);
     return list;
   }

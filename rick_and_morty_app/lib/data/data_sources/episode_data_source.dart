@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/adapters.dart';
-import '../dto/episode.dart';
+import '../entities/episode.dart';
 import 'interfaces/abstract_episode_data_source.dart';
 
 class EpisodeDataSource implements AbstractEpisodeDataSource{
@@ -11,10 +11,10 @@ class EpisodeDataSource implements AbstractEpisodeDataSource{
   );
 
   final Dio dio;
-  final Box<EpisodeDTO> episodesBox;
+  final Box<EpisodeEntity> episodesBox;
 
   @override
-  Future<EpisodeDTO> loadEpisode(int episodeId) async {
+  Future<EpisodeEntity> loadEpisode(int episodeId) async {
 
     try {
       final episode = await _fetchEpisode(episodeId);
@@ -25,12 +25,12 @@ class EpisodeDataSource implements AbstractEpisodeDataSource{
     }
   }
 
-  Future<EpisodeDTO> _fetchEpisode(int episodeId) async {
+  Future<EpisodeEntity> _fetchEpisode(int episodeId) async {
     final Response<Map<String, dynamic>> response = await dio.get(
       'https://rickandmortyapi.com/api/episode/$episodeId',
     );
     final data = response.data as Map<String, dynamic>;
-    final episode = EpisodeDTO.fromJson(data);
+    final episode = EpisodeEntity.fromJson(data);
     return episode;
   }
 }

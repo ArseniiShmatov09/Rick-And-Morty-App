@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rick_and_morty_app/data/data_sources/interfaces/abstract_character_data_source.dart';
-import '../../data/dto/character.dart';
+import '../../data/entities/character.dart';
 
 class CharacterDataSource implements AbstractCharacterDataSource {
 
@@ -11,10 +11,10 @@ class CharacterDataSource implements AbstractCharacterDataSource {
   );
 
   final Dio dio;
-  final Box<CharacterDTO> charactersBox;
+  final Box<CharacterEntity> charactersBox;
 
   @override
-  Future<CharacterDTO> loadCharacter(int characterId) async {
+  Future<CharacterEntity> loadCharacter(int characterId) async {
     try {
       final character = await _fetchCharacter(characterId);
       charactersBox.put(characterId, character);
@@ -24,13 +24,13 @@ class CharacterDataSource implements AbstractCharacterDataSource {
     }
   }
 
-  Future<CharacterDTO> _fetchCharacter(int characterId) async{
+  Future<CharacterEntity> _fetchCharacter(int characterId) async{
 
     final Response<Map<String, dynamic>> response  = await dio.get(
       'https://rickandmortyapi.com/api/character/$characterId'
     );
     final data = response.data as Map<String, dynamic>;
-    final character = CharacterDTO.fromJson(data);
+    final character = CharacterEntity.fromJson(data);
     return character;
   }
 

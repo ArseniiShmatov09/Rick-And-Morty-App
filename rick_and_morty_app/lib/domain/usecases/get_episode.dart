@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_app/domain/entities/episode_entity.dart';
+import 'package:rick_and_morty_app/domain/models/episode_model.dart';
 import 'package:rick_and_morty_app/domain/repositories/episode_repository.dart';
 
 class GetEpisode {
@@ -8,7 +8,7 @@ class GetEpisode {
 
   final EpisodeRepository _episodeRepository;
 
-  Future<EpisodeEntity> call(int episodeId) async {
+  Future<EpisodeModel> call(int episodeId) async {
     return await _episodeRepository.getEpisode(episodeId);
   }
 }

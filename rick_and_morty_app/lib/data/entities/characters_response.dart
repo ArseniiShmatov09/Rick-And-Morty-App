@@ -7,21 +7,21 @@ part 'characters_response.g.dart';
 
 @HiveType(typeId: 1)
 @JsonSerializable(explicitToJson: true)
-class CharactersResponseDTO {
+class CharactersResponseEntity {
 
   @HiveField(0)
-  final ApiInfoDTO info;
+  final ApiInfoEntity info;
 
   @HiveField(1)
   @JsonKey(name: 'results')
-  late List<CharacterDTO> characters;
+  late List<CharacterEntity> characters;
 
-  CharactersResponseDTO({
+  CharactersResponseEntity({
     required this.info,
     required this.characters
   });
 
-   factory CharactersResponseDTO.fromJson(Map<String, dynamic> json) =>
+   factory CharactersResponseEntity.fromJson(Map<String, dynamic> json) =>
     _$CharactersResponseFromJson(json);
   
   Map<String, dynamic> toJson() => _$CharactersResponseToJson(this);

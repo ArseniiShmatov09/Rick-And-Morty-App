@@ -1,4 +1,4 @@
-class EpisodeEntity {
+class EpisodeModel {
   final int id;
   final String name;
   final String airDate;
@@ -7,7 +7,7 @@ class EpisodeEntity {
   final String url;
   final DateTime created;
 
-  EpisodeEntity({
+  EpisodeModel({
     required this.id,
     required this.name,
     required this.airDate,

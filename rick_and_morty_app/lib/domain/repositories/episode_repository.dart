@@ -1,5 +1,5 @@
-import 'package:rick_and_morty_app/domain/entities/episode_entity.dart';
+import 'package:rick_and_morty_app/domain/models/episode_model.dart';
 
 abstract class EpisodeRepository {
-  Future<EpisodeEntity> getEpisode(int episodeId);
+  Future<EpisodeModel> getEpisode(int episodeId);
 }
