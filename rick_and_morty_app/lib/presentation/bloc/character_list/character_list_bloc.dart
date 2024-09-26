@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:rick_and_morty_app/domain/models/character_response_model.dart';
 import '../../../domain/models/character_model.dart';
 import '../../../domain/usecases/get_all_characters.dart';

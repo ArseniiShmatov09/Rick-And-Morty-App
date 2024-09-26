@@ -26,7 +26,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
     context.read<CharacterListBloc>().add(const LoadCharacterList(page: 1));
     controller.addListener(()
       {
-        if (controller.position.maxScrollExtent == controller.offset) {
+        if (controller.position.maxScrollExtent == controller.offset && !networkConnection.isOffline) {
           context.read<CharacterListBloc>().add(const LoadNextPage());
         }
       }
@@ -50,8 +50,8 @@ class _CharactersListPageState extends State<CharactersListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isOffline = networkConnection.isOffline;
-    return BlocBuilder<CharacterListBloc, CharacterListState>(
+    return !networkConnection.isOffline
+      ? BlocBuilder<CharacterListBloc, CharacterListState>(
       builder: (context, state) {
         if (state is CharacterListLoading) {
           return const LoadingIndicatorWidget();
@@ -59,7 +59,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
         if (state is CharacterListLoaded) {
           return Column(
             children: [
-              CharacterFilterSectionWidget(
+             CharacterFilterSectionWidget(
                 selectedStatus: selectedStatus,
                 selectedSpecies: selectedSpecies,
                 onStatusChanged: (value) {
@@ -72,7 +72,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                     selectedSpecies = value ?? '';
                   });
                 },
-                isOffline: isOffline,
+                isOffline: networkConnection.isOffline,
                 onSearchPressed: () {
                   _scrollToTop();
                   context.read<CharacterListBloc>().add(
@@ -97,7 +97,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                       final character = state.characters[index];
                       return CharacterListItemWidget(
                         character: character,
-                          isOffline: isOffline,
+                          isOffline: networkConnection.isOffline,
                         onTap: () => {
                           Navigator.of(context).pushNamed(
                             MainNavigationRouteNames.characterDetails,
@@ -116,8 +116,9 @@ class _CharactersListPageState extends State<CharactersListPage> {
             ],
           );
         }
-        return const Center(child: Text('No available data'));
+        return const LoadingIndicatorWidget();
       }
-    );
+    )
+      : const Center(child: Text('No available data'));
   }
 }

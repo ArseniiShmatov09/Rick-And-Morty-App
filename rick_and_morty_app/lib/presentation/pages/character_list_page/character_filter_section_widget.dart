@@ -21,6 +21,7 @@ class CharacterFilterSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     if (isOffline) return const SizedBox.shrink();
 
     return Padding(
