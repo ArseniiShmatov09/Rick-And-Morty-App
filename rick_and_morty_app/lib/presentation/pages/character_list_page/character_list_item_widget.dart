@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
+import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class CharacterListItemWidget extends StatelessWidget {
   final CharacterModel character;
-  final bool isOffline;
+  final NetworkConnection networkConnection;
   final VoidCallback onTap;
 
   const CharacterListItemWidget({
     Key? key,
     required this.character,
-    required this.isOffline,
+    required this.networkConnection,
     required this.onTap,
   }) : super(key: key);
 
@@ -31,7 +32,7 @@ class CharacterListItemWidget extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             child: Row(
               children: [
-                isOffline
+                networkConnection.isOffline
                     ? Image.asset('assets/images/no_image.jpeg')
                     : Image.network(character.image),
                 Expanded(

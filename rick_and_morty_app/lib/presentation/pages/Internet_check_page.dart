@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 import 'package:rick_and_morty_app/presentation/navigation/main_navigation.dart';
-
 import '../widgets/loading_indicator_widget.dart';
 
 class InternetCheckPage extends StatefulWidget {

@@ -8,8 +8,12 @@ import '../../../domain/utils/network_connection.dart';
 import '../../navigation/main_navigation.dart';
 
 class CharactersListPage extends StatefulWidget {
-  const CharactersListPage({super.key});
+  const CharactersListPage({
+    super.key,
+    required this.networkConnection
+  });
 
+  final NetworkConnection networkConnection;
   @override
   State<CharactersListPage> createState() => _CharactersListPageState();
 }
@@ -18,7 +22,6 @@ class _CharactersListPageState extends State<CharactersListPage> {
   final controller = ScrollController();
   String selectedStatus = '';
   String selectedSpecies = '';
-  final networkConnection = NetworkConnection();
 
   @override
   void initState() {
@@ -26,7 +29,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
     context.read<CharacterListBloc>().add(const LoadCharacterList(page: 1));
     controller.addListener(()
       {
-        if (controller.position.maxScrollExtent == controller.offset && !networkConnection.isOffline) {
+        if (controller.position.maxScrollExtent == controller.offset && !widget.networkConnection.isOffline) {
           context.read<CharacterListBloc>().add(const LoadNextPage());
         }
       }
@@ -50,8 +53,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return !networkConnection.isOffline
-      ? BlocBuilder<CharacterListBloc, CharacterListState>(
+    return BlocBuilder<CharacterListBloc, CharacterListState>(
       builder: (context, state) {
         if (state is CharacterListLoading) {
           return const LoadingIndicatorWidget();
@@ -72,7 +74,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                     selectedSpecies = value ?? '';
                   });
                 },
-                isOffline: networkConnection.isOffline,
+                networkConnection: widget.networkConnection,
                 onSearchPressed: () {
                   _scrollToTop();
                   context.read<CharacterListBloc>().add(
@@ -97,7 +99,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
                       final character = state.characters[index];
                       return CharacterListItemWidget(
                         character: character,
-                          isOffline: networkConnection.isOffline,
+                        networkConnection: widget.networkConnection,
                         onTap: () => {
                           Navigator.of(context).pushNamed(
                             MainNavigationRouteNames.characterDetails,
@@ -107,8 +109,8 @@ class _CharactersListPageState extends State<CharactersListPage> {
                       );
                     } else {
                       return state.hasMoreData
-                          ? const LoadingIndicatorWidget()
-                          : const SizedBox(height: 0);
+                        ? const LoadingIndicatorWidget()
+                        : const SizedBox(height: 0);
                     }
                   },
                 ),
@@ -118,7 +120,6 @@ class _CharactersListPageState extends State<CharactersListPage> {
         }
         return const LoadingIndicatorWidget();
       }
-    )
-      : const Center(child: Text('No available data'));
+    );
   }
 }

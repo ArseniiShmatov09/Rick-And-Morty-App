@@ -18,7 +18,7 @@ class PageFactory {
         getAllCharacters: GetIt.I<GetAllCharacters>(),
         getFilteredCharacters: GetIt.I<GetFilteredCharacters>(),
       ),
-      child: const AppNavigationPage(),
+      child: AppNavigationPage(),
     );
   }
 

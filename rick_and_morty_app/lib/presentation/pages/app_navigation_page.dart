@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/pages/character_list_page/characters_list_widget.dart';
 import 'package:rick_and_morty_app/presentation/pages/settings_page.dart';
 
 class AppNavigationPage extends StatefulWidget {
-  const AppNavigationPage({super.key});
+  AppNavigationPage({super.key});
+  final NetworkConnection networkConnection = NetworkConnection();
 
   @override
   State<AppNavigationPage> createState() => _AppNavigationPageState();
@@ -11,7 +13,6 @@ class AppNavigationPage extends StatefulWidget {
 
 class _AppNavigationPageState extends State<AppNavigationPage> {
   int currentPageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +36,7 @@ class _AppNavigationPageState extends State<AppNavigationPage> {
         ],
       ),
       body: <Widget>[
-        const CharactersListPage(),
+        CharactersListPage(networkConnection: widget.networkConnection),
         const SettingsPage(),
       ][currentPageIndex],
     );

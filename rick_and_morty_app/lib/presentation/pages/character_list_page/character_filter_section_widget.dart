@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/domain/utils/network_connection.dart';
 import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';
 
 class CharacterFilterSectionWidget extends StatelessWidget {
@@ -6,7 +7,7 @@ class CharacterFilterSectionWidget extends StatelessWidget {
   final String selectedSpecies;
   final void Function(String?) onStatusChanged;
   final void Function(String?) onSpeciesChanged;
-  final bool isOffline;
+  final NetworkConnection networkConnection;
   final VoidCallback onSearchPressed;
 
   const CharacterFilterSectionWidget({
@@ -15,14 +16,14 @@ class CharacterFilterSectionWidget extends StatelessWidget {
     required this.selectedSpecies,
     required this.onStatusChanged,
     required this.onSpeciesChanged,
-    required this.isOffline,
+    required this.networkConnection,
     required this.onSearchPressed,
   });
 
   @override
   Widget build(BuildContext context) {
 
-    if (isOffline) return const SizedBox.shrink();
+    if (networkConnection.isOffline) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
