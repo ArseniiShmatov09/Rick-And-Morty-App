@@ -11,15 +11,20 @@ part 'character_list_event.dart';
 class CharacterListBloc
     extends Bloc<CharacterListEvent, CharacterListState> {
 
-  CharacterListBloc() : super(const CharacterListState()) {
-    on<LoadCharacterList>(_loadAllCharacters);
-    on<LoadFilteredCharacterList>(_loadFilteredCharacters);
-    on<LoadNextPage>(loadNextPage);
-  }
+  CharacterListBloc({
+    required GetAllCharacters getAllCharacters,
+    required GetFilteredCharacters getFilteredCharacters,
+  }) : _getFilteredCharacters = getFilteredCharacters,
+       _getAllCharacters = getAllCharacters,
+    super(const CharacterListState()) {
+      on<LoadCharacterList>(_loadAllCharacters);
+      on<LoadFilteredCharacterList>(_loadFilteredCharacters);
+      on<LoadNextPage>(loadNextPage);
+    }
 
   final _characters = <CharacterModel>[];
-  final GetAllCharacters _getAllCharacters = GetIt.I<GetAllCharacters>();
-  final GetFilteredCharacters _getFilteredCharacters = GetIt.I<GetFilteredCharacters>();
+  final GetAllCharacters _getAllCharacters;
+  final GetFilteredCharacters _getFilteredCharacters;
   int currentPage = 1;
   int _pageCount = 1;
 
@@ -104,7 +109,6 @@ class CharacterListBloc
 
     try {
       final charactersResponse = await _loadCharacters(currentPage);
-      //_characters.clear();
       _characters.addAll(charactersResponse.characters);
       _pageCount = charactersResponse.info.pages;
       _hasMoreData = currentPage < _pageCount;

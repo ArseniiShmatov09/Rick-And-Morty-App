@@ -59,8 +59,8 @@ void initializeGetIt(
   );
 
   GetIt.I.registerLazySingleton<GetCharacter>(
-      () => GetCharacter(
-        characterRepository: CharacterRepositoryImpl(
+    () => GetCharacter(
+      characterRepository: CharacterRepositoryImpl(
         abstractCharacterDataSource: CharacterDataSource(
           dio,
           charactersBox,

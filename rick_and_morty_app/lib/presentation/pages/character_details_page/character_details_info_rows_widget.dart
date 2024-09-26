@@ -17,17 +17,30 @@ class CharacterDetailsInfoRowsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildInfoRow('Gender:', character?.gender ?? ''),
-        _buildInfoRow('Origin:', character?.origin.name ?? ''),
-        _buildInfoRow('Last known location:', character?.location.name ?? ''),
-        _buildInfoRow('First seen in:', firstEpisode?.name ?? ''),
-        _buildInfoRow('Type:', character?.type?.isEmpty ?? true ? 'Unknown' : character!.type!),
-        _buildInfoRow('Created at:', character?.created ?? ''),
+        InfoRow(title: 'Gender:', value: character?.gender ?? ''),
+        InfoRow(title: 'Origin:', value: character?.origin.name ?? ''),
+        InfoRow(title: 'Last known location:', value: character?.location.name ?? ''),
+        InfoRow(title: 'First seen in:', value: firstEpisode?.name ?? ''),
+        InfoRow(title: 'Type:', value: character?.type?.isEmpty ?? true ? 'Unknown' : character!.type!),
+        InfoRow(title: 'Created at:', value: character?.created ?? ''),
       ],
     );
   }
 
-  Widget _buildInfoRow(String title, String value) {
+}
+
+class InfoRow extends StatelessWidget {
+  const InfoRow({
+    super.key,
+    required this.title,
+    required this.value,
+  });
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -49,3 +62,4 @@ class CharacterDetailsInfoRowsWidget extends StatelessWidget {
     );
   }
 }
+

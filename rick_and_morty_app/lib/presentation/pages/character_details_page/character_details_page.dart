@@ -22,14 +22,12 @@ class CharacterDetailsPage extends StatefulWidget {
 }
 
 class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
-  late final CharacterDetailsBloc _characterDetailsBloc;
   final networkConnection = NetworkConnection();
 
   @override
   void initState() {
     super.initState();
-    _characterDetailsBloc = CharacterDetailsBloc();
-    _characterDetailsBloc.add(LoadCharacterDetails(characterId: widget.characterId));
+    context.read<CharacterDetailsBloc>().add(LoadCharacterDetails(characterId: widget.characterId));
   }
 
   @override
@@ -38,7 +36,6 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
       appBar: AppBar(
         backgroundColor: AppColors.mainGrey,
         title: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
-          bloc: _characterDetailsBloc,
           builder: (context, state) {
             return Text(
               state is CharacterDetailsLoaded
@@ -49,7 +46,6 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
         ),
       ),
       body: BlocBuilder<CharacterDetailsBloc, CharacterDetailsState>(
-        bloc: _characterDetailsBloc,
         builder: (context, state) {
           if (state is CharacterDetailsLoading) {
             return const LoadingIndicatorWidget();
