@@ -1,8 +1,9 @@
 part of 'character_list_bloc.dart';
 
-class CharacterListState {
+class CharacterListState extends Equatable {
   const CharacterListState();
 
+  @override
   List<Object?> get props => [];
 }
 

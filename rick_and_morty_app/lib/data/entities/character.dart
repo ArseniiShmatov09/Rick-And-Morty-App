@@ -59,9 +59,9 @@ class CharacterEntity {
   });
 
   factory CharacterEntity.fromJson(Map<String, dynamic> json) =>
-    _$CharacterFromJson(json);
+    _$CharacterEntityFromJson(json);
   
-  Map<String, dynamic> toJson() => _$CharacterToJson(this);
+  Map<String, dynamic> toJson() => _$CharacterEntityToJson(this);
 }
 
 @HiveType(typeId: 5)
@@ -80,8 +80,8 @@ class LocationInfoEntity{
   });
 
   factory LocationInfoEntity.fromJson(Map<String, dynamic> json) =>
-    _$LocationInfoFromJson(json);
+    _$LocationInfoEntityFromJson(json);
   
-  Map<String, dynamic> toJson() => _$LocationInfoToJson(this);
+  Map<String, dynamic> toJson() => _$LocationInfoEntityToJson(this);
 }
 

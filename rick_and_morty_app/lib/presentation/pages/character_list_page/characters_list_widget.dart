@@ -59,63 +59,65 @@ class _CharactersListPageState extends State<CharactersListPage> {
           return const LoadingIndicatorWidget();
         }
         if (state is CharacterListLoaded) {
-          return Column(
-            children: [
-             CharacterFilterSectionWidget(
-                selectedStatus: selectedStatus,
-                selectedSpecies: selectedSpecies,
-                onStatusChanged: (value) {
-                  setState(() {
-                    selectedStatus = value ?? '';
-                  });
-                },
-                onSpeciesChanged: (value) {
-                  setState(() {
-                    selectedSpecies = value ?? '';
-                  });
-                },
-                networkConnection: widget.networkConnection,
-                onSearchPressed: () {
-                  _scrollToTop();
-                  context.read<CharacterListBloc>().add(
-                     LoadFilteredCharacterList(
-                      page: 1,
-                      status: selectedStatus,
-                      species: selectedSpecies
-                    )
-                  );
-                },
-              ),
-              Expanded(
-                child: state.characters.isEmpty
-                    ? const Center(child: Text('No available data'))
-                    : ListView.builder(
-                  controller: controller,
-                  itemCount: state.characters.length +
-                      (state.hasMoreData ? 1 : 0),
-                  itemExtent: 150,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index < state.characters.length) {
-                      final character = state.characters[index];
-                      return CharacterListItemWidget(
-                        character: character,
-                        networkConnection: widget.networkConnection,
-                        onTap: () => {
-                          Navigator.of(context).pushNamed(
-                            MainNavigationRouteNames.characterDetails,
-                            arguments: character.id,
-                          ),
-                        }
-                      );
-                    } else {
-                      return state.hasMoreData
-                        ? const LoadingIndicatorWidget()
-                        : const SizedBox(height: 0);
-                    }
+          return SafeArea(
+            child: Column(
+              children: [
+               CharacterFilterSectionWidget(
+                  selectedStatus: selectedStatus,
+                  selectedSpecies: selectedSpecies,
+                  onStatusChanged: (value) {
+                    setState(() {
+                      selectedStatus = value ?? '';
+                    });
+                  },
+                  onSpeciesChanged: (value) {
+                    setState(() {
+                      selectedSpecies = value ?? '';
+                    });
+                  },
+                  networkConnection: widget.networkConnection,
+                  onSearchPressed: () {
+                    _scrollToTop();
+                    context.read<CharacterListBloc>().add(
+                       LoadFilteredCharacterList(
+                        page: 1,
+                        status: selectedStatus,
+                        species: selectedSpecies
+                      )
+                    );
                   },
                 ),
-              ),
-            ],
+                Expanded(
+                  child: state.characters.isEmpty
+                      ? const Center(child: Text('No available data'))
+                      : ListView.builder(
+                    controller: controller,
+                    itemCount: state.characters.length +
+                        (state.hasMoreData ? 1 : 0),
+                    itemExtent: 150,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index < state.characters.length) {
+                        final character = state.characters[index];
+                        return CharacterListItemWidget(
+                          character: character,
+                          networkConnection: widget.networkConnection,
+                          onTap: () => {
+                            Navigator.of(context).pushNamed(
+                              MainNavigationRouteNames.characterDetails,
+                              arguments: character.id,
+                            ),
+                          }
+                        );
+                      } else {
+                        return state.hasMoreData
+                          ? const LoadingIndicatorWidget()
+                          : const SizedBox(height: 0);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         }
         return const LoadingIndicatorWidget();

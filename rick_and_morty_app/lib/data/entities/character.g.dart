@@ -6,7 +6,7 @@ part of 'character.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CharacterAdapter extends TypeAdapter<CharacterEntity> {
+class CharacterEntityAdapter extends TypeAdapter<CharacterEntity> {
   @override
   final int typeId = 2;
 
@@ -25,10 +25,10 @@ class CharacterAdapter extends TypeAdapter<CharacterEntity> {
       gender: fields[5] as String,
       origin: fields[6] as LocationInfoEntity,
       location: fields[7] as LocationInfoEntity,
-      episode: (fields[8] as List).cast<String>(),
-      url: fields[9] as String,
       image: fields[10] as String,
+      episode: (fields[8] as List).cast<String>(),
       created: fields[11] as String,
+      url: fields[9] as String,
     );
   }
 
@@ -68,12 +68,12 @@ class CharacterAdapter extends TypeAdapter<CharacterEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CharacterAdapter &&
+      other is CharacterEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class LocationInfoAdapter extends TypeAdapter<LocationInfoEntity> {
+class LocationInfoEntityAdapter extends TypeAdapter<LocationInfoEntity> {
   @override
   final int typeId = 5;
 
@@ -84,8 +84,8 @@ class LocationInfoAdapter extends TypeAdapter<LocationInfoEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LocationInfoEntity(
-      name: fields[1] as String,
-      url: fields[2] as String,
+      name: fields[1] as String?,
+      url: fields[2] as String?,
     );
   }
 
@@ -105,7 +105,7 @@ class LocationInfoAdapter extends TypeAdapter<LocationInfoEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LocationInfoAdapter &&
+      other is LocationInfoEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -114,23 +114,27 @@ class LocationInfoAdapter extends TypeAdapter<LocationInfoEntity> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-CharacterEntity _$CharacterFromJson(Map<String, dynamic> json) => CharacterEntity(
+CharacterEntity _$CharacterEntityFromJson(Map<String, dynamic> json) =>
+    CharacterEntity(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       status: json['status'] as String,
       species: json['species'] as String,
       type: json['type'] as String?,
       gender: json['gender'] as String,
-      origin: LocationInfoEntity.fromJson(json['origin'] as Map<String, dynamic>),
-      location: LocationInfoEntity.fromJson(json['location'] as Map<String, dynamic>),
+      origin:
+          LocationInfoEntity.fromJson(json['origin'] as Map<String, dynamic>),
+      location:
+          LocationInfoEntity.fromJson(json['location'] as Map<String, dynamic>),
+      image: json['image'] as String,
       episode:
           (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
-      url: json['url'] as String,
-      image: json['image'] as String,
       created: json['created'] as String,
+      url: json['url'] as String,
     );
 
-Map<String, dynamic> _$CharacterToJson(CharacterEntity instance) => <String, dynamic>{
+Map<String, dynamic> _$CharacterEntityToJson(CharacterEntity instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,
@@ -145,12 +149,13 @@ Map<String, dynamic> _$CharacterToJson(CharacterEntity instance) => <String, dyn
       'created': instance.created,
     };
 
-LocationInfoEntity _$LocationInfoFromJson(Map<String, dynamic> json) => LocationInfoEntity(
-      name: json['name'] as String,
-      url: json['url'] as String,
+LocationInfoEntity _$LocationInfoEntityFromJson(Map<String, dynamic> json) =>
+    LocationInfoEntity(
+      name: json['name'] as String?,
+      url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$LocationInfoToJson(LocationInfoEntity instance) =>
+Map<String, dynamic> _$LocationInfoEntityToJson(LocationInfoEntity instance) =>
     <String, dynamic>{
       'name': instance.name,
       'url': instance.url,

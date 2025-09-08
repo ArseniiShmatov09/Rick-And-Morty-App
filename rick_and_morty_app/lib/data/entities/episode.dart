@@ -41,7 +41,7 @@ class EpisodeEntity {
   });
 
   factory EpisodeEntity.fromJson(Map<String, dynamic> json) =>
-    _$EpisodeFromJson(json);
+    _$EpisodeEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EpisodeToJson(this);
+  Map<String, dynamic> toJson() => _$EpisodeEntityToJson(this);
 }

@@ -8,7 +8,6 @@ part 'api_info.g.dart';
 @HiveType(typeId: 4)
 @JsonSerializable()
 class ApiInfoEntity {
-
   @HiveField(0)
   final int count;
 
@@ -28,9 +27,8 @@ class ApiInfoEntity {
     this.prev = '',
   });
 
-   factory ApiInfoEntity.fromJson(Map<String, dynamic> json) =>
-    _$ApiInfoFromJson(json);
+  factory ApiInfoEntity.fromJson(Map<String, dynamic> json) =>
+      _$ApiInfoEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ApiInfoToJson(this);
-
+  Map<String, dynamic> toJson() => _$ApiInfoEntityToJson(this);
 }

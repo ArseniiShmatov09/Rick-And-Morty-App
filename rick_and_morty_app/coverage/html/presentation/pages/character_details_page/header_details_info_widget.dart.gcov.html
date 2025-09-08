@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - presentation/pages/character_details_page/header_details_info_widget.dart</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory presentation/pages/character_details_page">presentation/pages/character_details_page</a> - header_details_info_widget.dart</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">17</td>
+            <td class="headerCovTableEntry">17</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2025-09-08 05:32:33</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/material.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : import 'package:rick_and_morty_app/domain/models/character_model.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:rick_and_morty_app/domain/utils/network_connection.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : import 'package:rick_and_morty_app/presentation/app_colors/app_colors.dart';</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : class HeaderDetailsInfoWidget extends StatelessWidget {</span>
+<span id="L7"><span class="lineNum">       7</span>              :   final CharacterModel? character;</span>
+<span id="L8"><span class="lineNum">       8</span>              :   final NetworkConnection networkConnection;</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           1 :   const HeaderDetailsInfoWidget({</span></span>
+<span id="L11"><span class="lineNum">      11</span>              :     super.key,</span>
+<span id="L12"><span class="lineNum">      12</span>              :     required this.character,</span>
+<span id="L13"><span class="lineNum">      13</span>              :     required this.networkConnection,</span>
+<span id="L14"><span class="lineNum">      14</span>              :   });</span>
+<span id="L15"><span class="lineNum">      15</span>              : </span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           1 :   @override</span></span>
+<span id="L17"><span class="lineNum">      17</span>              :   Widget build(BuildContext context) {</span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           1 :     return Column(</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :       children: [</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           1 :         Center(</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :           child: ClipRRect(</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :             borderRadius: BorderRadius.circular(100),</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :             child: networkConnection.isOffline</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :                 ? Image.asset(</span></span>
+<span id="L25"><span class="lineNum">      25</span>              :               'assets/images/no_image.jpeg',</span>
+<span id="L26"><span class="lineNum">      26</span>              :               height: 200,</span>
+<span id="L27"><span class="lineNum">      27</span>              :               width: 200,</span>
+<span id="L28"><span class="lineNum">      28</span>              :               fit: BoxFit.cover,</span>
+<span id="L29"><span class="lineNum">      29</span>              :             )</span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           1 :                 : Image.network(</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           2 :               character?.image ?? '',</span></span>
+<span id="L32"><span class="lineNum">      32</span>              :               height: 200,</span>
+<span id="L33"><span class="lineNum">      33</span>              :               width: 200,</span>
+<span id="L34"><span class="lineNum">      34</span>              :               fit: BoxFit.cover,</span>
+<span id="L35"><span class="lineNum">      35</span>              :             ),</span>
+<span id="L36"><span class="lineNum">      36</span>              :           ),</span>
+<span id="L37"><span class="lineNum">      37</span>              :         ),</span>
+<span id="L38"><span class="lineNum">      38</span>              :         const SizedBox(height: 16),</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :         Center(</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           1 :           child: Text(</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           2 :             character?.name ?? '',</span></span>
+<span id="L42"><span class="lineNum">      42</span>              :             style: const TextStyle(</span>
+<span id="L43"><span class="lineNum">      43</span>              :               fontSize: 28,</span>
+<span id="L44"><span class="lineNum">      44</span>              :               fontWeight: FontWeight.bold,</span>
+<span id="L45"><span class="lineNum">      45</span>              :             ),</span>
+<span id="L46"><span class="lineNum">      46</span>              :           ),</span>
+<span id="L47"><span class="lineNum">      47</span>              :         ),</span>
+<span id="L48"><span class="lineNum">      48</span>              :         const SizedBox(height: 10),</span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           1 :         Text(</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           5 :           '${character?.status} - ${character?.species}',</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           2 :           style: TextStyle(fontSize: 18, color: AppColors.mainGrey),</span></span>
+<span id="L52"><span class="lineNum">      52</span>              :         ),</span>
+<span id="L53"><span class="lineNum">      53</span>              :       ],</span>
+<span id="L54"><span class="lineNum">      54</span>              :     );</span>
+<span id="L55"><span class="lineNum">      55</span>              :   }</span>
+<span id="L56"><span class="lineNum">      56</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.3.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

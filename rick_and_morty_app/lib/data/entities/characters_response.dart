@@ -22,7 +22,7 @@ class CharactersResponseEntity {
   });
 
    factory CharactersResponseEntity.fromJson(Map<String, dynamic> json) =>
-    _$CharactersResponseFromJson(json);
+    _$CharactersResponseEntityFromJson(json);
   
-  Map<String, dynamic> toJson() => _$CharactersResponseToJson(this);
+  Map<String, dynamic> toJson() => _$CharactersResponseEntityToJson(this);
 }
