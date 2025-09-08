@@ -6,7 +6,7 @@ part of 'episode.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class EpisodeAdapter extends TypeAdapter<EpisodeEntity> {
+class EpisodeEntityAdapter extends TypeAdapter<EpisodeEntity> {
   @override
   final int typeId = 3;
 
@@ -53,7 +53,7 @@ class EpisodeAdapter extends TypeAdapter<EpisodeEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EpisodeAdapter &&
+      other is EpisodeEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -62,7 +62,8 @@ class EpisodeAdapter extends TypeAdapter<EpisodeEntity> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-EpisodeEntity _$EpisodeFromJson(Map<String, dynamic> json) => EpisodeEntity(
+EpisodeEntity _$EpisodeEntityFromJson(Map<String, dynamic> json) =>
+    EpisodeEntity(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       airDate: json['air_date'] as String,
@@ -74,7 +75,8 @@ EpisodeEntity _$EpisodeFromJson(Map<String, dynamic> json) => EpisodeEntity(
       created: DateTime.parse(json['created'] as String),
     );
 
-Map<String, dynamic> _$EpisodeToJson(EpisodeEntity instance) => <String, dynamic>{
+Map<String, dynamic> _$EpisodeEntityToJson(EpisodeEntity instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'air_date': instance.airDate,

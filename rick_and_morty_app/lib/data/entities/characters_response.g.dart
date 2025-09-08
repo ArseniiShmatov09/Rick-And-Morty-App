@@ -6,7 +6,8 @@ part of 'characters_response.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CharactersResponseAdapter extends TypeAdapter<CharactersResponseEntity> {
+class CharactersResponseEntityAdapter
+    extends TypeAdapter<CharactersResponseEntity> {
   @override
   final int typeId = 1;
 
@@ -38,7 +39,7 @@ class CharactersResponseAdapter extends TypeAdapter<CharactersResponseEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CharactersResponseAdapter &&
+      other is CharactersResponseEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -47,7 +48,8 @@ class CharactersResponseAdapter extends TypeAdapter<CharactersResponseEntity> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-CharactersResponseEntity _$CharactersResponseFromJson(Map<String, dynamic> json) =>
+CharactersResponseEntity _$CharactersResponseEntityFromJson(
+        Map<String, dynamic> json) =>
     CharactersResponseEntity(
       info: ApiInfoEntity.fromJson(json['info'] as Map<String, dynamic>),
       characters: (json['results'] as List<dynamic>)
@@ -55,7 +57,8 @@ CharactersResponseEntity _$CharactersResponseFromJson(Map<String, dynamic> json)
           .toList(),
     );
 
-Map<String, dynamic> _$CharactersResponseToJson(CharactersResponseEntity instance) =>
+Map<String, dynamic> _$CharactersResponseEntityToJson(
+        CharactersResponseEntity instance) =>
     <String, dynamic>{
       'info': instance.info.toJson(),
       'results': instance.characters.map((e) => e.toJson()).toList(),

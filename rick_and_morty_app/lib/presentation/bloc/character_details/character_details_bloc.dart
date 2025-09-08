@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/domain/models/character_model.dart';
 import 'package:rick_and_morty_app/domain/models/episode_model.dart';

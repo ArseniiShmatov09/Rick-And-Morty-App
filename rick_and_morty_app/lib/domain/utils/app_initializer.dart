@@ -22,11 +22,11 @@ import '../../data/data_sources/character_data_source.dart';
 Future<void> initializeHive() async {
   await Hive.initFlutter();
 
-  Hive.registerAdapter(EpisodeAdapter());
-  Hive.registerAdapter(ApiInfoAdapter());
-  Hive.registerAdapter(CharacterAdapter());
-  Hive.registerAdapter(CharactersResponseAdapter());
-  Hive.registerAdapter(LocationInfoAdapter());
+  Hive.registerAdapter(EpisodeEntityAdapter());
+  Hive.registerAdapter(ApiInfoEntityAdapter());
+  Hive.registerAdapter(CharacterEntityAdapter());
+  Hive.registerAdapter(CharactersResponseEntityAdapter());
+  Hive.registerAdapter(LocationInfoEntityAdapter());
 }
 
 void initializeGetIt(

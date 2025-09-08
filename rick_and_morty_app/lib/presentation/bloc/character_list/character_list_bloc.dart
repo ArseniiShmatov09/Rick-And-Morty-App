@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/domain/models/character_response_model.dart';
 import '../../../domain/models/character_model.dart';
@@ -22,6 +23,8 @@ class CharacterListBloc
     }
 
   final _characters = <CharacterModel>[];
+  get characters => _characters;
+
   final GetAllCharacters _getAllCharacters;
   final GetFilteredCharacters _getFilteredCharacters;
   int currentPage = 1;
@@ -81,6 +84,7 @@ class CharacterListBloc
       currentPage++;
     } catch (e) {
       _hasMoreData = false;
+      rethrow;
     }
   }
 
